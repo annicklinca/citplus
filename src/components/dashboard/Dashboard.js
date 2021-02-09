@@ -187,18 +187,18 @@ function Dashboard() {
                     <div className="row">
                         <div className="col-md-12"> 
                             <div className="row bg-white rounded-xl shadow-lg md:mr-6 md:ml-3 pt-4 pb-4">     
-                                <div className="col-md-3">
+                                <div className=" col-sm-12 col-md-3">
                                     <div className="p-2 bg-gray-100 hover:bg-blue-100 shadow-md rounded-lg">
                                         <a href="">
                                             <div class="row p-1">
-                                                <div className="col-md-12 pl-12 pb-2 pt-2">
-                                                    <i className="text-4xl  text-blue-500"><FaUser/></i>
+                                                <div className="col-md-12 justify-center ">
+                                                    <center className="text-4xl text-blue-500"><FaUser/></center>
                                                 </div>
-                                                <div className="col-md-12 md:text-center">
+                                                <div className="col-md-12 text-center">
                                                     <snap className="font-medium font-sans text-xs  text-gray-800">Jay mugabe</snap><br/>
                                                     <snap className="font-medium font-sans text-xs  text-gray-800">S1 class leader</snap>
                                                 </div>
-                                                <div className="col-md-12 mt-2">
+                                                <div className="col-md-12 mt-2 text-center">
                                                     <snap className="font-medium font-sans text-xs  text-gray-800">Upload exercise</snap><br/>
                                                     <snap className="font-medium font-sans text-xs  text-gray-800">Upload assignments</snap><br/>
                                                     <snap className="font-medium font-sans text-xs  text-gray-800">Upload Notes</snap>
@@ -207,18 +207,18 @@ function Dashboard() {
                                         </a>
                                     </div>
                                 </div> 
-                                <div className="col-md-3">
+                                <div className=" col-sm-12 col-md-3">
                                     <div className="p-2 bg-gray-100 hover:bg-blue-100 shadow-md rounded-lg">
                                         <a href="">
                                             <div class="row p-1">
-                                                <div className="col-md-12 pl-12 pb-2 pt-2">
-                                                    <i className="text-4xl  text-blue-500"><FaUser/></i>
+                                                <div className="col-md-12 justify-center ">
+                                                    <center className="text-4xl text-blue-500"><FaUser/></center>
                                                 </div>
-                                                <div className="col-md-12 md:text-center">
+                                                <div className="col-md-12 text-center">
                                                     <snap className="font-medium font-sans text-xs  text-gray-800">Jay mugabe</snap><br/>
                                                     <snap className="font-medium font-sans text-xs  text-gray-800">S1 class leader</snap>
                                                 </div>
-                                                <div className="col-md-12 mt-2">
+                                                <div className="col-md-12 mt-2 text-center">
                                                     <snap className="font-medium font-sans text-xs  text-gray-800">Upload exercise</snap><br/>
                                                     <snap className="font-medium font-sans text-xs  text-gray-800">Upload assignments</snap><br/>
                                                     <snap className="font-medium font-sans text-xs  text-gray-800">Upload Notes</snap>
@@ -226,19 +226,19 @@ function Dashboard() {
                                             </div>                
                                         </a>
                                     </div>
-                                </div> 
-                                <div className="col-md-3">
+                                </div>
+                                <div className=" col-sm-12 col-md-3">
                                     <div className="p-2 bg-gray-100 hover:bg-blue-100 shadow-md rounded-lg">
                                         <a href="">
                                             <div class="row p-1">
-                                                <div className="col-md-12 pl-12 pb-2 pt-2">
-                                                    <i className="text-4xl  text-blue-500"><FaUser/></i>
+                                                <div className="col-md-12 justify-center ">
+                                                    <center className="text-4xl text-blue-500"><FaUser/></center>
                                                 </div>
-                                                <div className="col-md-12 md:text-center">
+                                                <div className="col-md-12 text-center">
                                                     <snap className="font-medium font-sans text-xs  text-gray-800">Jay mugabe</snap><br/>
                                                     <snap className="font-medium font-sans text-xs  text-gray-800">S1 class leader</snap>
                                                 </div>
-                                                <div className="col-md-12 mt-2">
+                                                <div className="col-md-12 mt-2 text-center">
                                                     <snap className="font-medium font-sans text-xs  text-gray-800">Upload exercise</snap><br/>
                                                     <snap className="font-medium font-sans text-xs  text-gray-800">Upload assignments</snap><br/>
                                                     <snap className="font-medium font-sans text-xs  text-gray-800">Upload Notes</snap>
@@ -246,19 +246,19 @@ function Dashboard() {
                                             </div>                
                                         </a>
                                     </div>
-                                </div> 
-                                <div className="col-md-3">
+                                </div>
+                                <div className=" col-sm-12 col-md-3">
                                     <div className="p-2 bg-gray-100 hover:bg-blue-100 shadow-md rounded-lg">
                                         <a href="">
                                             <div class="row p-1">
-                                                <div className="col-md-12 pl-12 pb-2 pt-2">
-                                                    <i className="text-4xl  text-blue-500"><FaUser/></i>
+                                                <div className="col-md-12 justify-center ">
+                                                    <center className="text-4xl text-blue-500"><FaUser/></center>
                                                 </div>
-                                                <div className="col-md-12 md:text-center">
+                                                <div className="col-md-12 text-center">
                                                     <snap className="font-medium font-sans text-xs  text-gray-800">Jay mugabe</snap><br/>
                                                     <snap className="font-medium font-sans text-xs  text-gray-800">S1 class leader</snap>
                                                 </div>
-                                                <div className="col-md-12 mt-2">
+                                                <div className="col-md-12 mt-2 text-center">
                                                     <snap className="font-medium font-sans text-xs  text-gray-800">Upload exercise</snap><br/>
                                                     <snap className="font-medium font-sans text-xs  text-gray-800">Upload assignments</snap><br/>
                                                     <snap className="font-medium font-sans text-xs  text-gray-800">Upload Notes</snap>
@@ -266,7 +266,7 @@ function Dashboard() {
                                             </div>                
                                         </a>
                                     </div>
-                                </div> 
+                                </div>
                                 
                                
                             </div>

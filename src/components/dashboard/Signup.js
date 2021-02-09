@@ -47,7 +47,7 @@ function Signup() {
              </div> 
              <div className="from-label-group pt-2">
               <p>Already have account? 
-                <a className=" ml-2 text-blue-500" href="/Signin">Sign In</a>
+                <a className=" ml-2 text-blue-500" href="/">Sign In</a>
               </p>
              </div> 
              
