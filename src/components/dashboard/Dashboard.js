@@ -14,6 +14,7 @@ import { FaUser } from 'react-icons/fa';
 import { FaStar} from 'react-icons/fa';
 import { FaQuestion} from 'react-icons/fa';
 import { FaEnvelope} from 'react-icons/fa';
+import { FaEnvelNavLeftope} from 'react-icons/fa';
 import { FaPhoneSquare} from 'react-icons/fa';
 
 
