@@ -21,7 +21,7 @@ function NavLeft() {
     
     return(
         <>
-               <div className="pr-4 pl-4 pb-1 pt-1">
+               <div className="pr-4 pl-4 pb-1 pt-1 hidden md:block lg:block">
                     <ul className="">
                        
                         <li className="text-center hover:bg-blue-100 rounded-xl p-1">
@@ -136,7 +136,7 @@ function NavLeft() {
                             </a>
                         </li>
                         <li className="text-center hover:bg-blue-100 rounded-xl p-1">
-                            <a href="">
+                            <a href="/">
                                 <div class="row">
                                     <div className="col-md-12 pl-20">
                                         <i className="text-4xl text-blue-600"><FaSignOutAlt/></i>
