@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^12.6.2",
     "autoprefixer": "^10.2.3",
     "bootstrap": "^5.0.0-beta1",
+    "chart.js": "^2.9.3",
     "mdbreact": "^5.0.1",
     "postcss": "^8.2.4",
     "react": "^17.0.1",
@@ -16,6 +17,7 @@
     "react-icons": "^4.1.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
+    "recharts": "^2.0.6",
     "tailwindcss": "^2.0.2",
     "web-vitals": "^0.2.4"
   },
