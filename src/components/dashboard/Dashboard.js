@@ -45,7 +45,7 @@ function Dashboard() {
                           <span className="font-normal">Physics</span>
                          </div>
                          <div className="mt-4 row">
-                          <div className="col-6"><snap className="font-normal">Test</snap></div>
+                          <div className="col-6"><snap className="font-normal"><a href="">Test</a></snap></div>
                           <div className="col-6 flex gap-1">
                               <span className="flex text-sm text-green-400"><FaSquare/><FaSquare/><FaSquare/></span>
                               <span className="flex text-sm text-blue-400"><FaSquare/><FaSquare className="text-gray-400"/><FaSquare className="text-gray-400"/></span>
