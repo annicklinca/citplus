@@ -37,7 +37,7 @@ function NavLeft() {
                             </a>
                         </li>
                         <li className="text-center hover:bg-blue-100 rounded-xl p-1">
-                            <a href="">
+                            <a href="/time">
                                 <div class="row">
                                     <div className="col-md-12 pl-20">
                                         <i className="text-3xl text-green-400"><FaCalendarAlt/></i>
