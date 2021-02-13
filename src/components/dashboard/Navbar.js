@@ -45,21 +45,21 @@ function Navbar() {
                     </div>
                     <div>
                       <nav className="grid gap-y-4">
-                        <a href="/" className="flex items-center p-3 -m-3 space-x-3 transition duration-150 ease-in-out rounded-md hover:bg-gray-50">
+                        <a href="/Home" className="flex items-center p-3 -m-3 space-x-3 transition duration-150 ease-in-out rounded-md hover:bg-gray-50">
                           <div className="text-base font-medium leading-6 text-gray-900">
-                            Home
+                            User Account
                           </div>
                         </a>
                         
-                        <a href="/" className="flex items-center p-3 -m-3 space-x-3 transition duration-150 ease-in-out rounded-md hover:bg-gray-50">                        
+                        <a href="/timetable" className="flex items-center p-3 -m-3 space-x-3 transition duration-150 ease-in-out rounded-md hover:bg-gray-50">                        
                           <div className="text-base font-medium leading-6 text-gray-900">
-                            House for rent
+                            Timetable
                           </div>
                         </a>
 
                         <a href="" className="flex items-center p-3 -m-3 space-x-3 transition duration-150 ease-in-out rounded-md hover:bg-gray-50">                        
                           <div className="text-base font-medium leading-6 text-gray-900">
-                            House for sale
+                            Class
                           </div>
                         </a>
 
@@ -71,7 +71,43 @@ function Navbar() {
 
                         <a href="" className="flex items-center p-3 -m-3 space-x-3 transition duration-150 ease-in-out rounded-md hover:bg-gray-50">                       
                           <div className="text-base font-medium leading-6 text-gray-900">
-                            Help
+                            Teacher
+                          </div>
+                        </a>
+
+                        <a href="" className="flex items-center p-3 -m-3 space-x-3 transition duration-150 ease-in-out rounded-md hover:bg-gray-50">                       
+                          <div className="text-base font-medium leading-6 text-gray-900">
+                            Modules
+                          </div>
+                        </a>
+
+                        <a href="" className="flex items-center p-3 -m-3 space-x-3 transition duration-150 ease-in-out rounded-md hover:bg-gray-50">                       
+                          <div className="text-base font-medium leading-6 text-gray-900">
+                            Books
+                          </div>
+                        </a>
+
+                        <a href="" className="flex items-center p-3 -m-3 space-x-3 transition duration-150 ease-in-out rounded-md hover:bg-gray-50">                       
+                          <div className="text-base font-medium leading-6 text-gray-900">
+                           Comunique
+                          </div>
+                        </a>
+
+                        <a href="" className="flex items-center p-3 -m-3 space-x-3 transition duration-150 ease-in-out rounded-md hover:bg-gray-50">                       
+                          <div className="text-base font-medium leading-6 text-gray-900">
+                          LiveChat
+                          </div>
+                        </a>
+
+                        <a href="" className="flex items-center p-3 -m-3 space-x-3 transition duration-150 ease-in-out rounded-md hover:bg-gray-50">                       
+                          <div className="text-base font-medium leading-6 text-gray-900">
+                           Todo
+                          </div>
+                        </a>
+
+                        <a href="" className="flex items-center p-3 -m-3 space-x-3 transition duration-150 ease-in-out rounded-md hover:bg-gray-50">                       
+                          <div className="text-base font-medium leading-6 text-gray-900">
+                           Logout
                           </div>
                         </a>
                         
