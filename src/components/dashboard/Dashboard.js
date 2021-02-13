@@ -55,7 +55,7 @@ function Dashboard() {
         setYearExam(false);
         setInnovation(false);
     }
-
+   const myname = localStorage.getItem('fullname')
     return(
         <>
            {/* Navbar top import */}
@@ -75,7 +75,7 @@ function Dashboard() {
                <div className="bg-blue-100 rounded-lg md:mr-4 flex flex-wrap"> 
                 <div className="w-full md:w-2/6 md:pl-8">
                      <div className="m-2 p-2">
-                         <span className="font-medium font-sans text-gray-700 text-2xl">Dear Djuma <br/> Good Lucky Today!</span>
+                         <span className="font-medium font-sans text-gray-700 text-2xl">Dear {myname} <br/> Good Lucky Today!</span>
                          <div className="mt-4">
                           <span className="font-normal">Mathematich</span><br/>
                           <span className="font-normal">Physics</span>
@@ -592,8 +592,8 @@ function Dashboard() {
                         </div>
                         <div className="col-md-7 mt-2">
                            <div className="row md:m-1  bg-white rounded-xl shadow-lg">
-                              <div className="col-8 pl-3 pt-2 pb-2">
-                                <span className="font-medium font-sans text-gray-700 text-xl">Hello, Djuma</span>
+                              <div className="col-8 pl-4 py-5 pt-2 pb-2">
+                                <span className="font-medium font-sans text-gray-700 text-xl">Hello,{myname}</span>
                                 <div className="mt-2">
                                 <span className="font-normal text-sm">Remember to submit all student's quiz for reporting processing <br/> Have a nice day! </span><br/>
                                 <button className="bg-blue-600 hover:bg-blue-500 m-1 p-1 shadow-md text-gray-100 font-medium w-full rounded-xl">Submit</button>
@@ -601,7 +601,7 @@ function Dashboard() {
                               </div>
                               <div className="col-4">
                                   <div className="pt-4 pr-2">
-                                    <img src={cartoon} />
+                                    <img src={cartoon}  alt=""/>
                                   </div>
                               </div>
                            </div>
