@@ -3,6 +3,7 @@ import { Button } from 'react-bootstrap';
 import { Modal } from 'react-bootstrap';
 import "../../css/tailwindcss.css";
 import "../../css/dashboard.css";
+import { useHistory } from 'react-router-dom';
 import Navbar from './Navbar';
 import NavLeft from './NavLeft';
 import { FaCalendarAlt } from 'react-icons/fa';
@@ -21,7 +22,7 @@ import { FaPhoneSquare} from 'react-icons/fa';
 
 
 function Dashboard() {
-
+    const history =useHistory()
     const [show, setShow] = useState(false);
     const [showAssginment, setShowAssign] = useState(false);
     const [showMiddleTermExam, setShowMiddleTermExam] = useState(false);
@@ -56,6 +57,12 @@ function Dashboard() {
         setInnovation(false);
     }
    const myname = localStorage.getItem('fullname')
+   const token =localStorage.getItem('token')
+   const category =localStorage.getItem('category')
+
+   if(token==='' || category!=='teacher' ){
+history.push('/')
+}
     return(
         <>
            {/* Navbar top import */}
@@ -802,5 +809,6 @@ function Dashboard() {
         </div>
         </>
     )
+  
 }
 export default Dashboard;
