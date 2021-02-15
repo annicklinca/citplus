@@ -184,10 +184,10 @@ function Dashboard() {
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-md-12"> 
-                            <div className="row bg-white rounded-xl shadow-lg md:mr-6 md:ml-3 pt-4 pb-4">     
+                        <div className=""> 
+                            <div className="row bg-red-400 rounded-xl shadow-lg md:mr-6 md:ml-3 p-4">     
                                 <div className=" col-sm-12 col-md-3">
-                                    <div className="p-2 bg-gray-100 hover:bg-blue-100 shadow-md rounded-lg">
+                                    <div className=" bg-gray-100 hover:bg-blue-100 shadow-md rounded-lg">
                                         <a href="">
                                             <div class="row p-1">
                                                 <div className="col-md-12 justify-center ">
