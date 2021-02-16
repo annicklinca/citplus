@@ -1,6 +1,9 @@
-import  React,{useState} from "react";
+import  React,{useState,Component} from "react";
+import { Button } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import "../../css/tailwindcss.css";
 import "../../css/dashboard.css";
+import { useHistory } from 'react-router-dom';
 import Navbar from './Navbar';
 import NavLeft from './NavLeft';
 import { FaCalendarAlt } from 'react-icons/fa';
@@ -14,11 +17,52 @@ import { FaUser } from 'react-icons/fa';
 import { FaStar} from 'react-icons/fa';
 import { FaQuestion} from 'react-icons/fa';
 import { FaEnvelope} from 'react-icons/fa';
+import { FaEnvelNavLeftope} from 'react-icons/fa';
 import { FaPhoneSquare} from 'react-icons/fa';
 
 
 function Dashboard() {
-    
+    const history =useHistory()
+    const [show, setShow] = useState(false);
+    const [showAssginment, setShowAssign] = useState(false);
+    const [showMiddleTermExam, setShowMiddleTermExam] = useState(false);
+    const [showTermExam, setTermExam] = useState(false);
+    const [showYearExam, setYearExam] = useState(false);
+    const [showInnovation, setInnovation] = useState(false);
+   
+    const handleTest = () => {
+        setShow(true);
+    }
+    const handleAssginment = () =>{
+        setShowAssign(true);
+    }
+    const handleMiddleTermExam = () =>{
+        setShowMiddleTermExam(true);        
+    }
+    const handleTermExam = () =>{
+        setTermExam(true);
+    }
+    const handleYearExam = () =>{
+        setYearExam(true);
+    }
+    const handleInnovation = () =>{
+        setInnovation(true);
+    }
+    const handleClose = () => {
+        setShow(false);
+        setShowAssign(false);
+        setShowMiddleTermExam(false);
+        setTermExam(false);
+        setYearExam(false);
+        setInnovation(false);
+    }
+   const myname = localStorage.getItem('fullname')
+   const token =localStorage.getItem('token')
+   const category =localStorage.getItem('category')
+
+   if(token==='' || category!=='teacher' ){
+history.push('/')
+}
     return(
         <>
            {/* Navbar top import */}
@@ -38,43 +82,430 @@ function Dashboard() {
                <div className="bg-blue-100 rounded-lg md:mr-4 flex flex-wrap"> 
                 <div className="w-full md:w-2/6 md:pl-8">
                      <div className="m-2 p-2">
-                         <span className="font-medium font-sans text-gray-700 text-2xl">Dear Djuma <br/> Good Lucky Today!</span>
+                         <span className="font-medium font-sans text-gray-700 text-2xl capitalize">Dear <span>{myname}</span> <br/> Good Lucky Today!</span>
                          <div className="mt-4">
                           <span className="font-normal">Mathematich</span><br/>
                           <span className="font-normal">Physics</span>
                          </div>
                          <div className="mt-4 row">
-                          <div className="col-6"><snap className="font-normal">Test</snap></div>
+                          <div className="col-6">
+                              <snap className="font-normal hover:cursor-pointer" onClick={handleTest}><a href="#">Test</a></snap>
+                                <Modal
+                                    show={show}
+                                    onHide={handleClose}
+                                    backdrop="static"
+                                    keyboard={false}
+                                >
+                                    <Modal.Header closeButton>
+                                    <Modal.Title><p>Adding Test marks</p></Modal.Title>
+                                    </Modal.Header>
+                                    <Modal.Body>
+                                        <form className="">
+                                            <div class="form-group row">
+                                                <label for="inputPassword" class="col-sm-2 col-form-label">Category</label>
+                                                <div class="col-sm-10">
+                                                    <input type="category" class="form-control" id="inputPassword" placeholder="Enter Category"/>
+                                                </div>   
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="inputPassword" class="col-sm-2 col-form-label">Title</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter Test title"/>
+                                                </div>   
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="inputPassword" class="col-sm-2 col-form-label">Student</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter student id"/>
+                                                </div>   
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="inputPassword" class="col-sm-2 col-form-label">Class</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter class id"/>
+                                                </div>   
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label for="inputPassword" class="col-sm-2 col-form-label">Term</label>
+                                                <div class="col-sm-10">
+                                                    <select class="form-control">
+                                                        <option>First Term</option>
+                                                        <option>Second Term</option>
+                                                        <option>Third Term</option>
+                                                    </select>
+                                                </div>   
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label for="inputPassword" class="col-sm-2 col-form-label">Marks</label>
+                                                <div class="col-sm-10">
+                                                    <input type="number" class="form-control" id="inputPassword" placeholder="Enter marks"/>
+                                                </div>   
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <div class="col-sm-12">
+                                                  <button className="bg-blue-500 w-full p-2 rounded-lg hover:bg-blue-400 font-semibold text-white">Add Marks</button>
+                                                </div>   
+                                            </div>
+                                        </form>
+                                    </Modal.Body>
+                                </Modal>
+                          
+                          </div>
                           <div className="col-6 flex gap-1">
                               <span className="flex text-sm text-green-400"><FaSquare/><FaSquare/><FaSquare/></span>
                               <span className="flex text-sm text-blue-400"><FaSquare/><FaSquare className="text-gray-400"/><FaSquare className="text-gray-400"/></span>
                               <span className="flex text-sm text-pink-400"><FaSquare/><FaSquare/><FaSquare /></span>
                           </div>
-                          <div className="col-6"><snap className="font-normal">Assignments</snap></div>
+                          <div className="col-6">
+
+                            <snap className="font-normal hover:cursor-pointer" onClick={handleAssginment}><a href="#">Assignments</a></snap>
+                                <Modal
+                                    show={showAssginment}
+                                    onHide={handleClose}
+                                    backdrop="static"
+                                    keyboard=""
+                                >
+                                    <Modal.Header closeButton>
+                                    <Modal.Title><p>Adding Assignments marks</p></Modal.Title>
+                                    </Modal.Header>
+                                    <Modal.Body>
+                                        <form className="">
+                                            <div class="form-group row">
+                                                <label for="inputPassword" class="col-sm-2 col-form-label">Category</label>
+                                                <div class="col-sm-10">
+                                                    <input type="category" class="form-control" id="inputPassword" placeholder="Enter Category"/>
+                                                </div>   
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="inputPassword" class="col-sm-2 col-form-label">Title</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter Assignment title"/>
+                                                </div>   
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="inputPassword" class="col-sm-2 col-form-label">Student</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter student id"/>
+                                                </div>   
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="inputPassword" class="col-sm-2 col-form-label">Class</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter class id"/>
+                                                </div>   
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label for="inputPassword" class="col-sm-2 col-form-label">Term</label>
+                                                <div class="col-sm-10">
+                                                    <select class="form-control">
+                                                        <option>First Term</option>
+                                                        <option>Second Term</option>
+                                                        <option>Third Term</option>
+                                                    </select>
+                                                </div>   
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label for="inputPassword" class="col-sm-2 col-form-label">Marks</label>
+                                                <div class="col-sm-10">
+                                                    <input type="number" class="form-control" id="inputPassword" placeholder="Enter marks"/>
+                                                </div>   
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <div class="col-sm-12">
+                                                  <button className="bg-blue-500 w-full p-2 rounded-lg hover:bg-blue-400 font-semibold text-white">Add Marks</button>
+                                                </div>   
+                                            </div>
+                                        </form>
+                                    </Modal.Body>
+                                </Modal>      
+                          </div>
                           <div className="col-6 flex gap-1">
                               <span className="flex text-sm text-green-400"><FaSquare/><FaSquare/><FaSquare/></span>
                               <span className="flex text-sm text-blue-400"><FaSquare/><FaSquare/><FaSquare className="text-gray-400"/></span>
                               <span className="flex text-sm text-pink-400"><FaSquare/><FaSquare/><FaSquare/></span>
                           </div>
-                          <div className="col-6"><snap className="font-normal">Middle Term Exam</snap></div>
+                          <div className="col-6">
+                              <snap className="font-normal hover:cursor-pointer" onClick={handleMiddleTermExam}><a href="#">Middle Term Exam</a></snap>
+                                <Modal
+                                    show={showMiddleTermExam}
+                                    onHide={handleClose}
+                                    backdrop="static"
+                                    keyboard=""
+                                >
+                                    <Modal.Header closeButton>
+                                    <Modal.Title><p>Adding Middle Term Exam marks</p></Modal.Title>
+                                    </Modal.Header>
+                                    <Modal.Body>
+                                        <form className="">
+                                            <div class="form-group row">
+                                                <label for="inputPassword" class="col-sm-2 col-form-label">Category</label>
+                                                <div class="col-sm-10">
+                                                    <input type="category" class="form-control" id="inputPassword" placeholder="Enter Category"/>
+                                                </div>   
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="inputPassword" class="col-sm-2 col-form-label">Title</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter Middle term title"/>
+                                                </div>   
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="inputPassword" class="col-sm-2 col-form-label">Student</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter student id"/>
+                                                </div>   
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="inputPassword" class="col-sm-2 col-form-label">Class</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter class id"/>
+                                                </div>   
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label for="inputPassword" class="col-sm-2 col-form-label">Term</label>
+                                                <div class="col-sm-10">
+                                                    <select class="form-control">
+                                                        <option>First Term</option>
+                                                        <option>Second Term</option>
+                                                        <option>Third Term</option>
+                                                    </select>
+                                                </div>   
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label for="inputPassword" class="col-sm-2 col-form-label">Marks</label>
+                                                <div class="col-sm-10">
+                                                    <input type="number" class="form-control" id="inputPassword" placeholder="Enter marks"/>
+                                                </div>   
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <div class="col-sm-12">
+                                                  <button className="bg-blue-500 w-full p-2 rounded-lg hover:bg-blue-400 font-semibold text-white">Add Marks</button>
+                                                </div>   
+                                            </div>
+                                        </form>
+                                    </Modal.Body>
+                                </Modal>
+                          </div>
+
                           <div className="col-6 flex gap-1">
                               <span className="flex text-sm text-green-400"><FaSquare/><FaSquare/><FaSquare/></span>
                               <span className="flex text-sm text-blue-400"><FaSquare/><FaSquare/><FaSquare className="text-gray-400"/></span>
                               <span className="flex text-sm text-pink-400"><FaSquare/><FaSquare/><FaSquare/></span>
                           </div>
-                          <div className="col-6"><snap className="font-normal">Term Exam</snap></div>
+                          <div className="col-6">
+                              <snap className="font-normal hover:cursor-pointer" onClick={handleTermExam}><a href="#">Term Exam</a></snap>
+                              <Modal
+                                    show={showTermExam}
+                                    onHide={handleClose}
+                                    backdrop="static"
+                                    keyboard=""
+                                >
+                                    <Modal.Header closeButton>
+                                    <Modal.Title><p>Adding Term Exams marks</p></Modal.Title>
+                                    </Modal.Header>
+                                    <Modal.Body>
+                                        <form className="">
+                                            <div class="form-group row">
+                                                <label for="inputPassword" class="col-sm-2 col-form-label">Category</label>
+                                                <div class="col-sm-10">
+                                                    <input type="category" class="form-control" id="inputPassword" placeholder="Enter Category"/>
+                                                </div>   
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="inputPassword" class="col-sm-2 col-form-label">Title</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter Term Exam title"/>
+                                                </div>   
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="inputPassword" class="col-sm-2 col-form-label">Student</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter student id"/>
+                                                </div>   
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="inputPassword" class="col-sm-2 col-form-label">Class</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter class id"/>
+                                                </div>   
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label for="inputPassword" class="col-sm-2 col-form-label">Term</label>
+                                                <div class="col-sm-10">
+                                                    <select class="form-control">
+                                                        <option>First Term</option>
+                                                        <option>Second Term</option>
+                                                        <option>Third Term</option>
+                                                    </select>
+                                                </div>   
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label for="inputPassword" class="col-sm-2 col-form-label">Marks</label>
+                                                <div class="col-sm-10">
+                                                    <input type="number" class="form-control" id="inputPassword" placeholder="Enter marks"/>
+                                                </div>   
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <div class="col-sm-12">
+                                                  <button className="bg-blue-500 w-full p-2 rounded-lg hover:bg-blue-400 font-semibold text-white">Add Marks</button>
+                                                </div>   
+                                            </div>
+                                        </form>
+                                    </Modal.Body>
+                                </Modal>
+                          </div>
                           <div className="col-6 flex gap-1">
                               <span className="flex text-sm text-green-400"><FaSquare/><FaSquare/><FaSquare/></span>
                               <span className="flex text-sm text-blue-400"><FaSquare className="text-gray-400"/><FaSquare className="text-gray-400"/><FaSquare className="text-gray-400"/></span>
                               <span className="flex text-sm text-pink-400"><FaSquare/><FaSquare/><FaSquare/></span>
                           </div>
-                          <div className="col-6"><snap className="font-normal">Year Exam</snap></div>
+                          <div className="col-6">
+                              <snap className="font-normal hover:cursor-pointer" onClick={handleYearExam}><a href="#">Year Exam</a></snap>
+                                <Modal
+                                    show={showYearExam}
+                                    onHide={handleClose}
+                                    backdrop="static"
+                                    keyboard=""
+                                >
+                                    <Modal.Header closeButton>
+                                    <Modal.Title><p>Adding Year Exams marks</p></Modal.Title>
+                                    </Modal.Header>
+                                    <Modal.Body>
+                                        <form className="">
+                                            <div class="form-group row">
+                                                <label for="inputPassword" class="col-sm-2 col-form-label">Category</label>
+                                                <div class="col-sm-10">
+                                                    <input type="category" class="form-control" id="inputPassword" placeholder="Enter Category"/>
+                                                </div>   
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="inputPassword" class="col-sm-2 col-form-label">Title</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter Exam title"/>
+                                                </div>   
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="inputPassword" class="col-sm-2 col-form-label">Student</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter student id"/>
+                                                </div>   
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="inputPassword" class="col-sm-2 col-form-label">Class</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter class id"/>
+                                                </div>   
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label for="inputPassword" class="col-sm-2 col-form-label">Term</label>
+                                                <div class="col-sm-10">
+                                                    <select class="form-control">
+                                                        <option>First Term</option>
+                                                        <option>Second Term</option>
+                                                        <option>Third Term</option>
+                                                    </select>
+                                                </div>   
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label for="inputPassword" class="col-sm-2 col-form-label">Marks</label>
+                                                <div class="col-sm-10">
+                                                    <input type="number" class="form-control" id="inputPassword" placeholder="Enter marks"/>
+                                                </div>   
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <div class="col-sm-12">
+                                                  <button className="bg-blue-500 w-full p-2 rounded-lg hover:bg-blue-400 font-semibold text-white">Add Marks</button>
+                                                </div>   
+                                            </div>
+                                        </form>
+                                    </Modal.Body>
+                                </Modal>
+                          </div>
                           <div className="col-6 flex gap-1">
                               <span className="flex text-sm text-pink-400"><FaSquare/><FaSquare/><FaSquare/></span>
                               <span className="flex text-sm text-pink-400"><FaSquare/><FaSquare/><FaSquare/></span>
                               <span className="flex text-sm text-pink-400"><FaSquare/><FaSquare/><FaSquare/></span>
                           </div>
-                          <div className="col-6"><snap className="font-normal">Innovations Marks</snap></div>
+                          <div className="col-6">
+                              <snap className="font-normal hover:cursor-pointer" onClick={handleInnovation}><a href="#">Innovations Marks</a></snap>
+                                <Modal
+                                    show={showInnovation}
+                                    onHide={handleClose}
+                                    backdrop="static"
+                                    keyboard=""
+                                >
+                                    <Modal.Header closeButton>
+                                    <Modal.Title><p>Adding Innovations marks</p></Modal.Title>
+                                    </Modal.Header>
+                                    <Modal.Body>
+                                        <form className="">
+                                            <div class="form-group row">
+                                                <label for="inputPassword" class="col-sm-2 col-form-label">Category</label>
+                                                <div class="col-sm-10">
+                                                    <input type="category" class="form-control" id="inputPassword" placeholder="Enter Category"/>
+                                                </div>   
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="inputPassword" class="col-sm-2 col-form-label">Title</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter Innovation title"/>
+                                                </div>   
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="inputPassword" class="col-sm-2 col-form-label">Student</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter student id"/>
+                                                </div>   
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="inputPassword" class="col-sm-2 col-form-label">Class</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter class id"/>
+                                                </div>   
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label for="inputPassword" class="col-sm-2 col-form-label">Term</label>
+                                                <div class="col-sm-10">
+                                                    <select class="form-control">
+                                                        <option>First Term</option>
+                                                        <option>Second Term</option>
+                                                        <option>Third Term</option>
+                                                    </select>
+                                                </div>   
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label for="inputPassword" class="col-sm-2 col-form-label">Marks</label>
+                                                <div class="col-sm-10">
+                                                    <input type="number" class="form-control" id="inputPassword" placeholder="Enter marks"/>
+                                                </div>   
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <div class="col-sm-12">
+                                                  <button className="bg-blue-500 w-full p-2 rounded-lg hover:bg-blue-400 font-semibold text-white">Add Marks</button>
+                                                </div>   
+                                            </div>
+                                        </form>
+                                    </Modal.Body>
+                                </Modal>
+                          </div>
                           <div className="col-6 flex gap-1">
                               <span className="flex text-sm text-green-400"><FaSquare/><FaSquare className="text-orange-400"/><FaSquare/></span>
                               <span className="flex text-sm text-blue-400"><FaSquare className="text-orange-400"/><FaSquare className="text-orange-400"/><FaSquare className="text-orange-400"/></span>
@@ -168,8 +599,8 @@ function Dashboard() {
                         </div>
                         <div className="col-md-7 mt-2">
                            <div className="row md:m-1  bg-white rounded-xl shadow-lg">
-                              <div className="col-8 pl-3 pt-2 pb-2">
-                                <span className="font-medium font-sans text-gray-700 text-xl">Hello, Djuma</span>
+                              <div className="col-8 pl-4 py-5 pt-2 pb-2">
+                                <span className="font-medium font-sans text-gray-700 text-xl capitalize">Hello, {myname}</span>
                                 <div className="mt-2">
                                 <span className="font-normal text-sm">Remember to submit all student's quiz for reporting processing <br/> Have a nice day! </span><br/>
                                 <button className="bg-blue-600 hover:bg-blue-500 m-1 p-1 shadow-md text-gray-100 font-medium w-full rounded-xl">Submit</button>
@@ -177,7 +608,7 @@ function Dashboard() {
                               </div>
                               <div className="col-4">
                                   <div className="pt-4 pr-2">
-                                    <img src={cartoon} />
+                                    <img src={cartoon}  alt=""/>
                                   </div>
                               </div>
                            </div>
@@ -266,8 +697,6 @@ function Dashboard() {
                                         </a>
                                     </div>
                                 </div>
-                                
-                               
                             </div>
                         </div>
                     </div>
@@ -380,5 +809,6 @@ function Dashboard() {
         </div>
         </>
     )
+  
 }
 export default Dashboard;

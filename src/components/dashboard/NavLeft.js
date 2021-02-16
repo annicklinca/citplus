@@ -25,7 +25,7 @@ function NavLeft() {
                     <ul className="">
                        
                         <li className="text-center hover:bg-blue-100 rounded-xl p-1">
-                            <a href="">
+                            <a href="/Home">
                                 <div class="row">
                                     <div className="col-md-12 pl-20">
                                         <i className="text-3xl text-blue-300"><FaUserCheck/></i>
@@ -37,7 +37,7 @@ function NavLeft() {
                             </a>
                         </li>
                         <li className="text-center hover:bg-blue-100 rounded-xl p-1">
-                            <a href="">
+                            <a href="/timetable">
                                 <div class="row">
                                     <div className="col-md-12 pl-20">
                                         <i className="text-3xl text-green-400"><FaCalendarAlt/></i>
@@ -136,7 +136,7 @@ function NavLeft() {
                             </a>
                         </li>
                         <li className="text-center hover:bg-blue-100 rounded-xl p-1">
-                            <a href="">
+                            <a href="/">
                                 <div class="row">
                                     <div className="col-md-12 pl-20">
                                         <i className="text-4xl text-blue-600"><FaSignOutAlt/></i>
