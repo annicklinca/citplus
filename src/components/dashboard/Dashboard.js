@@ -94,12 +94,13 @@ function Dashboard() {
             'Authorization':token
         }})
         .then((res)=>{
-            console.log(res.data)
+            
             setLoading(false)
+            setMessage(res.message)
         })
         .catch((err)=>{
-            console.log(err)
-            setLoading(false)
+                setLoading(false)
+                setMessage(`Failed to add marks- ${err.message}`)
         })
 
     }
