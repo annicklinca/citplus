@@ -35,9 +35,9 @@ function Signin() {
     
  axios.post(`${urlPath.login}`,data)
         .then((res)=>{
-
+        
          setMessage(res.data.message)
-         localStorage.setItem('token', res.data.data.token)
+         localStorage.setItem('token', res.data.token)
          localStorage.setItem('fullname',res.data.data.fullname)
          localStorage.setItem('email',res.data.data.email)
          localStorage.setItem('category',res.data.data.category)

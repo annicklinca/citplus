@@ -1,9 +1,9 @@
-import  React,{useState,Component} from "react";
+import  React,{useState,Component,useEffect} from "react";
 import { Button } from 'react-bootstrap';
 import { Modal } from 'react-bootstrap';
 import "../../css/tailwindcss.css";
 import "../../css/dashboard.css";
-import { useHistory } from 'react-router-dom';
+
 import Navbar from './Navbar';
 import NavLeft from './NavLeft';
 import { FaCalendarAlt } from 'react-icons/fa';
@@ -19,16 +19,18 @@ import { FaQuestion} from 'react-icons/fa';
 import { FaEnvelope} from 'react-icons/fa';
 import { FaEnvelNavLeftope} from 'react-icons/fa';
 import { FaPhoneSquare} from 'react-icons/fa';
-
+import axios from "axios";
+import urlPath from '../../constant'
 
 function Dashboard() {
-    const history =useHistory()
+   
     const [show, setShow] = useState(false);
     const [showAssginment, setShowAssign] = useState(false);
     const [showMiddleTermExam, setShowMiddleTermExam] = useState(false);
     const [showTermExam, setTermExam] = useState(false);
     const [showYearExam, setYearExam] = useState(false);
     const [showInnovation, setInnovation] = useState(false);
+ 
    
     const handleTest = () => {
         setShow(true);
@@ -56,13 +58,56 @@ function Dashboard() {
         setYearExam(false);
         setInnovation(false);
     }
-   const myname = localStorage.getItem('fullname')
-   const token =localStorage.getItem('token')
-   const category =localStorage.getItem('category')
+    const myname = localStorage.getItem('fullname')
+    const token =localStorage.getItem('token')
+    // const category =localStorage.getItem('category')
+     // test========================
+    const [category,setCategory]=useState('')
+    const [courseTitle,setCourseTitle] =useState('')
+    const [classid,setClassid]=useState('')
+    const [student,setStudent]=useState('')
+    const [term,setTerm]=useState('')
+    const [marks, setMarks]=useState('')
+    const [message,setMessage]=useState('')
+    const [isError,setIsError]=useState('')    
+    const [loading,setLoading] =useState(false)
 
-   if(token==='' || category!=='teacher' ){
-history.push('/')
-}
+    const testExam=(event)=>{
+        event.preventDefault();
+      setLoading(true)
+    const   data={
+            category:category,
+            testTitle:courseTitle,
+            classID:classid,
+            studentID:student,
+            marks:marks,
+            term:term
+
+        }
+
+    if(category==='' || marks ==='' ){
+     setMessage('Please fill all fields')
+     setLoading(false)
+     setIsError(true)
+    }else{
+        axios.post(`${urlPath.signup}`,data,{headers:{
+            'Authorization':token
+        }})
+        .then((res)=>{
+            console.log(res.data)
+            setLoading(false)
+        })
+        .catch((err)=>{
+            console.log(err)
+            setLoading(false)
+        })
+
+    }
+
+
+    }
+    
+    // END TEST
     return(
         <>
            {/* Navbar top import */}
@@ -100,39 +145,47 @@ history.push('/')
                                     <Modal.Title><p>Adding Test marks</p></Modal.Title>
                                     </Modal.Header>
                                     <Modal.Body>
-                                        <form className="">
+                                        <form method="POST" className="">
+
+                                        { isError?  <div   className="bg-green-200 p-2 text-gray-600  font-bold rounded-xl mb-2">
+              <p className="text-center">{message}</p>
+              </div>
+              :<span></span>}
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Category</label>
                                                 <div class="col-sm-10">
-                                                    <input type="category" class="form-control" id="inputPassword" placeholder="Enter Category"/>
+                                                    <input type="category" value={category} onChange={(e)=>{
+                                                        setCategory(e.target.value)
+                                                    }} className="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter Category"/>
                                                 </div>   
                                             </div>
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Title</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter Test title"/>
+                                                    <input type="text" value={courseTitle} onChange={(e)=>setCourseTitle(e.target.value)} class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter Test title"/>
                                                 </div>   
                                             </div>
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Student</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter student id"/>
+                                                    <input type="text" value={student} onChange={(e)=>setStudent(e.target.value)} class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter student id"/>
                                                 </div>   
                                             </div>
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Class</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter class id"/>
+                                                    <input type="text" value={classid} onChange={(e)=>{setClassid(e.target.value)}}
+                                                     class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter class id"/>
                                                 </div>   
                                             </div>
                                             
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Term</label>
                                                 <div class="col-sm-10">
-                                                    <select class="form-control">
-                                                        <option>First Term</option>
-                                                        <option>Second Term</option>
-                                                        <option>Third Term</option>
+                                                    <select value={term} onChange={(e)=>setTerm(e.target.value)} class="border w-full px-2 py-2 ">
+                                                        <option value="First Term">First Term</option>
+                                                        <option value="Second Term">Second Term</option>
+                                                        <option value="Third Term">Third Term</option>
                                                     </select>
                                                 </div>   
                                             </div>
@@ -140,13 +193,13 @@ history.push('/')
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Marks</label>
                                                 <div class="col-sm-10">
-                                                    <input type="number" class="form-control" id="inputPassword" placeholder="Enter marks"/>
+                                                    <input type="text" value={marks} onChange={(e)=>setMarks(e.target.value)} class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter marks"/>
                                                 </div>   
                                             </div>
                                             
                                             <div class="form-group row">
                                                 <div class="col-sm-12">
-                                                  <button className="bg-blue-500 w-full p-2 rounded-lg hover:bg-blue-400 font-semibold text-white">Add Marks</button>
+                                              { loading ? <button  className="bg-blue-500 w-full p-2 rounded-lg hover:bg-blue-400 font-semibold text-white">Adding marks...</button>    :<button type="submit" onClick={testExam} className="bg-blue-500 w-full p-2 rounded-lg hover:bg-blue-400 font-semibold text-white">Add Marks</button>}
                                                 </div>   
                                             </div>
                                         </form>
@@ -176,32 +229,32 @@ history.push('/')
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Category</label>
                                                 <div class="col-sm-10">
-                                                    <input type="category" class="form-control" id="inputPassword" placeholder="Enter Category"/>
+                                                    <input type="category" class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter Category"/>
                                                 </div>   
                                             </div>
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Title</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter Assignment title"/>
+                                                    <input type="text" class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter Assignment title"/>
                                                 </div>   
                                             </div>
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Student</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter student id"/>
+                                                    <input type="text" class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter student id"/>
                                                 </div>   
                                             </div>
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Class</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter class id"/>
+                                                    <input type="text" class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter class id"/>
                                                 </div>   
                                             </div>
                                             
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Term</label>
                                                 <div class="col-sm-10">
-                                                    <select class="form-control">
+                                                    <select class="border w-full px-2 py-2 ">
                                                         <option>First Term</option>
                                                         <option>Second Term</option>
                                                         <option>Third Term</option>
@@ -212,7 +265,7 @@ history.push('/')
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Marks</label>
                                                 <div class="col-sm-10">
-                                                    <input type="number" class="form-control" id="inputPassword" placeholder="Enter marks"/>
+                                                    <input type="number" class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter marks"/>
                                                 </div>   
                                             </div>
                                             
@@ -246,32 +299,32 @@ history.push('/')
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Category</label>
                                                 <div class="col-sm-10">
-                                                    <input type="category" class="form-control" id="inputPassword" placeholder="Enter Category"/>
+                                                    <input type="category" class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter Category"/>
                                                 </div>   
                                             </div>
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Title</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter Middle term title"/>
+                                                    <input type="text" class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter Middle term title"/>
                                                 </div>   
                                             </div>
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Student</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter student id"/>
+                                                    <input type="text" class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter student id"/>
                                                 </div>   
                                             </div>
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Class</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter class id"/>
+                                                    <input type="text" class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter class id"/>
                                                 </div>   
                                             </div>
                                             
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Term</label>
                                                 <div class="col-sm-10">
-                                                    <select class="form-control">
+                                                    <select class="border w-full px-2 py-2 ">
                                                         <option>First Term</option>
                                                         <option>Second Term</option>
                                                         <option>Third Term</option>
@@ -282,7 +335,7 @@ history.push('/')
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Marks</label>
                                                 <div class="col-sm-10">
-                                                    <input type="number" class="form-control" id="inputPassword" placeholder="Enter marks"/>
+                                                    <input type="number" class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter marks"/>
                                                 </div>   
                                             </div>
                                             
@@ -317,32 +370,32 @@ history.push('/')
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Category</label>
                                                 <div class="col-sm-10">
-                                                    <input type="category" class="form-control" id="inputPassword" placeholder="Enter Category"/>
+                                                    <input type="category" class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter Category"/>
                                                 </div>   
                                             </div>
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Title</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter Term Exam title"/>
+                                                    <input type="text" class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter Term Exam title"/>
                                                 </div>   
                                             </div>
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Student</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter student id"/>
+                                                    <input type="text" class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter student id"/>
                                                 </div>   
                                             </div>
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Class</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter class id"/>
+                                                    <input type="text" class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter class id"/>
                                                 </div>   
                                             </div>
                                             
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Term</label>
                                                 <div class="col-sm-10">
-                                                    <select class="form-control">
+                                                    <select class="border w-full px-2 py-2 ">
                                                         <option>First Term</option>
                                                         <option>Second Term</option>
                                                         <option>Third Term</option>
@@ -353,7 +406,7 @@ history.push('/')
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Marks</label>
                                                 <div class="col-sm-10">
-                                                    <input type="number" class="form-control" id="inputPassword" placeholder="Enter marks"/>
+                                                    <input type="number" class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter marks"/>
                                                 </div>   
                                             </div>
                                             
@@ -387,32 +440,32 @@ history.push('/')
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Category</label>
                                                 <div class="col-sm-10">
-                                                    <input type="category" class="form-control" id="inputPassword" placeholder="Enter Category"/>
+                                                    <input type="category" class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter Category"/>
                                                 </div>   
                                             </div>
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Title</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter Exam title"/>
+                                                    <input type="text" class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter Exam title"/>
                                                 </div>   
                                             </div>
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Student</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter student id"/>
+                                                    <input type="text" class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter student id"/>
                                                 </div>   
                                             </div>
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Class</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter class id"/>
+                                                    <input type="text" class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter class id"/>
                                                 </div>   
                                             </div>
                                             
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Term</label>
                                                 <div class="col-sm-10">
-                                                    <select class="form-control">
+                                                    <select class="border w-full px-2 py-2 ">
                                                         <option>First Term</option>
                                                         <option>Second Term</option>
                                                         <option>Third Term</option>
@@ -423,7 +476,7 @@ history.push('/')
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Marks</label>
                                                 <div class="col-sm-10">
-                                                    <input type="number" class="form-control" id="inputPassword" placeholder="Enter marks"/>
+                                                    <input type="number" class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter marks"/>
                                                 </div>   
                                             </div>
                                             
@@ -457,32 +510,32 @@ history.push('/')
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Category</label>
                                                 <div class="col-sm-10">
-                                                    <input type="category" class="form-control" id="inputPassword" placeholder="Enter Category"/>
+                                                    <input type="category" class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter Category"/>
                                                 </div>   
                                             </div>
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Title</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter Innovation title"/>
+                                                    <input type="text" class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter Innovation title"/>
                                                 </div>   
                                             </div>
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Student</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter student id"/>
+                                                    <input type="text" class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter student id"/>
                                                 </div>   
                                             </div>
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Class</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter class id"/>
+                                                    <input type="text" class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter class id"/>
                                                 </div>   
                                             </div>
                                             
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Term</label>
                                                 <div class="col-sm-10">
-                                                    <select class="form-control">
+                                                    <select class="border w-full px-2 py-2 ">
                                                         <option>First Term</option>
                                                         <option>Second Term</option>
                                                         <option>Third Term</option>
@@ -493,7 +546,7 @@ history.push('/')
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Marks</label>
                                                 <div class="col-sm-10">
-                                                    <input type="number" class="form-control" id="inputPassword" placeholder="Enter marks"/>
+                                                    <input type="number" class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter marks"/>
                                                 </div>   
                                             </div>
                                             
