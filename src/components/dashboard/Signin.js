@@ -24,7 +24,7 @@ function Signin() {
     const data={
 
       email:email,
-          password:password
+      password:password
     }
     setLoading(true)
     if( email ==='' ||password==='' ){

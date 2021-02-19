@@ -4,6 +4,8 @@ import { Modal } from 'react-bootstrap';
 import "../../css/tailwindcss.css";
 import "../../css/dashboard.css";
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
+import urlPath from '../../constant'
 import Navbar from './Navbar';
 import NavLeft from './NavLeft';
 import { FaCalendarAlt } from 'react-icons/fa';
@@ -60,9 +62,46 @@ function Dashboard() {
    const token =localStorage.getItem('token')
    const category =localStorage.getItem('category')
 
-   if(token==='' || category!=='teacher' ){
-history.push('/')
-}
+    if(token==='' || category!=='teacher' ){
+    history.push('/')
+    }
+
+    
+    //Exam integration
+
+   const [examcategory, setCategory]=useState('')
+   const [examtitle, setTitle]=useState('')
+   const [studentid, setStudentid]=useState('')
+   const [classid, setClassid]=useState('')
+   const [term, setTerm]=useState('')
+   const [marks, setMarks]=useState('')
+   const [loading,setLoading]=useState(false) 
+   const [message, setMessage]=useState(false)
+
+
+   const AddYearExamMarks = (event) =>{
+       event.preventDefault()
+       const data={
+           "examTitle":examtitle,
+           "studentID":studentid,
+           "classID":classid,
+           "semester":term,
+           "marks":marks,
+           "category":category
+       }
+       setLoading(true)
+       axios.post(`${urlPath.exam}`,data)
+       .then((res)=>{
+           setMessage(res.data.message)
+           setLoading(false)
+       })
+       .catch((err)=>{
+           setMessage(err.message)
+           setLoading(false)
+       })
+
+   } 
+   
     return(
         <>
            {/* Navbar top import */}
@@ -231,148 +270,7 @@ history.push('/')
                               <span className="flex text-sm text-pink-400"><FaSquare/><FaSquare/><FaSquare/></span>
                           </div>
                           <div className="col-6">
-                              <snap className="font-normal hover:cursor-pointer" onClick={handleMiddleTermExam}><a href="#">Middle Term Exam</a></snap>
-                                <Modal
-                                    show={showMiddleTermExam}
-                                    onHide={handleClose}
-                                    backdrop="static"
-                                    keyboard=""
-                                >
-                                    <Modal.Header closeButton>
-                                    <Modal.Title><p>Adding Middle Term Exam marks</p></Modal.Title>
-                                    </Modal.Header>
-                                    <Modal.Body>
-                                        <form className="">
-                                            <div class="form-group row">
-                                                <label for="inputPassword" class="col-sm-2 col-form-label">Category</label>
-                                                <div class="col-sm-10">
-                                                    <input type="category" class="form-control" id="inputPassword" placeholder="Enter Category"/>
-                                                </div>   
-                                            </div>
-                                            <div class="form-group row">
-                                                <label for="inputPassword" class="col-sm-2 col-form-label">Title</label>
-                                                <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter Middle term title"/>
-                                                </div>   
-                                            </div>
-                                            <div class="form-group row">
-                                                <label for="inputPassword" class="col-sm-2 col-form-label">Student</label>
-                                                <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter student id"/>
-                                                </div>   
-                                            </div>
-                                            <div class="form-group row">
-                                                <label for="inputPassword" class="col-sm-2 col-form-label">Class</label>
-                                                <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter class id"/>
-                                                </div>   
-                                            </div>
-                                            
-                                            <div class="form-group row">
-                                                <label for="inputPassword" class="col-sm-2 col-form-label">Term</label>
-                                                <div class="col-sm-10">
-                                                    <select class="form-control">
-                                                        <option>First Term</option>
-                                                        <option>Second Term</option>
-                                                        <option>Third Term</option>
-                                                    </select>
-                                                </div>   
-                                            </div>
-                                            
-                                            <div class="form-group row">
-                                                <label for="inputPassword" class="col-sm-2 col-form-label">Marks</label>
-                                                <div class="col-sm-10">
-                                                    <input type="number" class="form-control" id="inputPassword" placeholder="Enter marks"/>
-                                                </div>   
-                                            </div>
-                                            
-                                            <div class="form-group row">
-                                                <div class="col-sm-12">
-                                                  <button className="bg-blue-500 w-full p-2 rounded-lg hover:bg-blue-400 font-semibold text-white">Add Marks</button>
-                                                </div>   
-                                            </div>
-                                        </form>
-                                    </Modal.Body>
-                                </Modal>
-                          </div>
-
-                          <div className="col-6 flex gap-1">
-                              <span className="flex text-sm text-green-400"><FaSquare/><FaSquare/><FaSquare/></span>
-                              <span className="flex text-sm text-blue-400"><FaSquare/><FaSquare/><FaSquare className="text-gray-400"/></span>
-                              <span className="flex text-sm text-pink-400"><FaSquare/><FaSquare/><FaSquare/></span>
-                          </div>
-                          <div className="col-6">
-                              <snap className="font-normal hover:cursor-pointer" onClick={handleTermExam}><a href="#">Term Exam</a></snap>
-                              <Modal
-                                    show={showTermExam}
-                                    onHide={handleClose}
-                                    backdrop="static"
-                                    keyboard=""
-                                >
-                                    <Modal.Header closeButton>
-                                    <Modal.Title><p>Adding Term Exams marks</p></Modal.Title>
-                                    </Modal.Header>
-                                    <Modal.Body>
-                                        <form className="">
-                                            <div class="form-group row">
-                                                <label for="inputPassword" class="col-sm-2 col-form-label">Category</label>
-                                                <div class="col-sm-10">
-                                                    <input type="category" class="form-control" id="inputPassword" placeholder="Enter Category"/>
-                                                </div>   
-                                            </div>
-                                            <div class="form-group row">
-                                                <label for="inputPassword" class="col-sm-2 col-form-label">Title</label>
-                                                <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter Term Exam title"/>
-                                                </div>   
-                                            </div>
-                                            <div class="form-group row">
-                                                <label for="inputPassword" class="col-sm-2 col-form-label">Student</label>
-                                                <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter student id"/>
-                                                </div>   
-                                            </div>
-                                            <div class="form-group row">
-                                                <label for="inputPassword" class="col-sm-2 col-form-label">Class</label>
-                                                <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter class id"/>
-                                                </div>   
-                                            </div>
-                                            
-                                            <div class="form-group row">
-                                                <label for="inputPassword" class="col-sm-2 col-form-label">Term</label>
-                                                <div class="col-sm-10">
-                                                    <select class="form-control">
-                                                        <option>First Term</option>
-                                                        <option>Second Term</option>
-                                                        <option>Third Term</option>
-                                                    </select>
-                                                </div>   
-                                            </div>
-                                            
-                                            <div class="form-group row">
-                                                <label for="inputPassword" class="col-sm-2 col-form-label">Marks</label>
-                                                <div class="col-sm-10">
-                                                    <input type="number" class="form-control" id="inputPassword" placeholder="Enter marks"/>
-                                                </div>   
-                                            </div>
-                                            
-                                            <div class="form-group row">
-                                                <div class="col-sm-12">
-                                                  <button className="bg-blue-500 w-full p-2 rounded-lg hover:bg-blue-400 font-semibold text-white">Add Marks</button>
-                                                </div>   
-                                            </div>
-                                        </form>
-                                    </Modal.Body>
-                                </Modal>
-                          </div>
-                          <div className="col-6 flex gap-1">
-                              <span className="flex text-sm text-green-400"><FaSquare/><FaSquare/><FaSquare/></span>
-                              <span className="flex text-sm text-blue-400"><FaSquare className="text-gray-400"/><FaSquare className="text-gray-400"/><FaSquare className="text-gray-400"/></span>
-                              <span className="flex text-sm text-pink-400"><FaSquare/><FaSquare/><FaSquare/></span>
-                          </div>
-                          <div className="col-6">
-                              <snap className="font-normal hover:cursor-pointer" onClick={handleYearExam}><a href="#">Year Exam</a></snap>
+                              <snap className="font-normal hover:cursor-pointer" onClick={handleYearExam}><a href="#">Exam</a></snap>
                                 <Modal
                                     show={showYearExam}
                                     onHide={handleClose}
@@ -385,34 +283,38 @@ history.push('/')
                                     <Modal.Body>
                                         <form className="">
                                             <div class="form-group row">
+                                               <p className="p-2 bg-blue-200 font-medium text-green-500">{message}</p>  
+                                            </div>
+                                            
+                                            <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Category</label>
                                                 <div class="col-sm-10">
-                                                    <input type="category" class="form-control" id="inputPassword" placeholder="Enter Category"/>
+                                                    <input type="text" value={examcategory} onChange={event=>setCategory(event.target.value)} class="form-control" id="inputPassword" placeholder="Enter Category"/>
                                                 </div>   
                                             </div>
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Title</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter Exam title"/>
+                                                    <input type="text" value={examtitle} onChange={event=>setTitle(event.target.value)} class="form-control" id="inputPassword" placeholder="Enter Exam title"/>
                                                 </div>   
                                             </div>
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Student</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter student id"/>
+                                                    <input type="text" value={studentid} onChange={event=>setStudentid(event.target.value)} class="form-control" id="inputPassword" placeholder="Enter student id"/>
                                                 </div>   
                                             </div>
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Class</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter class id"/>
+                                                    <input type="text" value={classid} onChange={event=>setClassid(event.target.value)} class="form-control" id="inputPassword" placeholder="Enter class id"/>
                                                 </div>   
                                             </div>
                                             
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Term</label>
                                                 <div class="col-sm-10">
-                                                    <select class="form-control">
+                                                    <select value={term} onChange={event=>setTerm(event.target.value)} class="form-control">
                                                         <option>First Term</option>
                                                         <option>Second Term</option>
                                                         <option>Third Term</option>
@@ -429,7 +331,8 @@ history.push('/')
                                             
                                             <div class="form-group row">
                                                 <div class="col-sm-12">
-                                                  <button className="bg-blue-500 w-full p-2 rounded-lg hover:bg-blue-400 font-semibold text-white">Add Marks</button>
+                                                    {loading? <button className="bg-blue-500 w-full p-2 rounded-lg hover:bg-blue-400 font-semibold text-white"> saving marks ....</button>
+                                                 :<button onClick={AddYearExamMarks} className="bg-blue-500 w-full p-2 rounded-lg hover:bg-blue-400 font-semibold text-white">Add Marks</button>}
                                                 </div>   
                                             </div>
                                         </form>
