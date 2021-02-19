@@ -39,11 +39,10 @@ function NavLeft() {
                         <li className="text-center hover:bg-blue-100 rounded-xl p-1">
                             <a href="/timetable">
                                 <div class="row">
-                                    <div className="col-md-12 pl-20">
-                                        <i className="text-3xl text-green-400"><FaCalendarAlt/></i>
-                                    </div>
-                                    <div className="col-md-12">
-                                        <p className="font-medium p-1 font-sans  text-blue-800">Timetable</p>
+                                    <div className="col-md-12 ">
+                                        <i className="text-3xl text-green-400 inline-block"><FaCalendarAlt/></i>
+                                   
+                                        <p className="inline-block font-medium p-1 font-sans  text-blue-800">Timetable</p>
                                     </div>
                                 </div>                
                             </a>

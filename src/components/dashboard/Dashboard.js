@@ -1,11 +1,11 @@
-import  React,{useState,Component} from "react";
+import  React,{useState,Component,useEffect} from "react";
 import { Button } from 'react-bootstrap';
 import { Modal } from 'react-bootstrap';
 import "../../css/tailwindcss.css";
 import "../../css/dashboard.css";
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
-import urlPath from '../../constant'
+import urlPath from '../../constant';
 import Navbar from './Navbar';
 import NavLeft from './NavLeft';
 import { FaCalendarAlt } from 'react-icons/fa';
@@ -22,15 +22,15 @@ import { FaEnvelope} from 'react-icons/fa';
 import { FaEnvelNavLeftope} from 'react-icons/fa';
 import { FaPhoneSquare} from 'react-icons/fa';
 
-
 function Dashboard() {
-    const history =useHistory()
+   
     const [show, setShow] = useState(false);
     const [showAssginment, setShowAssign] = useState(false);
     const [showMiddleTermExam, setShowMiddleTermExam] = useState(false);
     const [showTermExam, setTermExam] = useState(false);
     const [showYearExam, setYearExam] = useState(false);
     const [showInnovation, setInnovation] = useState(false);
+ 
    
     const handleTest = () => {
         setShow(true);
@@ -58,25 +58,70 @@ function Dashboard() {
         setYearExam(false);
         setInnovation(false);
     }
-   const myname = localStorage.getItem('fullname')
-   const token =localStorage.getItem('token')
-   const category =localStorage.getItem('category')
+    const myname = localStorage.getItem('fullname')
+    const token =localStorage.getItem('token')  
+    // if(token==='' || category!=='teacher' ){
+    //     history.push('/')
+    //     }
+    
+    // const category =localStorage.getItem('category')
+     // test========================
+    const [category,setCategory]=useState('')
+    const [courseTitle,setCourseTitle] =useState('')
+    const [classid,setClassid]=useState('')
+    const [student,setStudent]=useState('')
+    const [term,setTerm]=useState('')
+    const [marks, setMarks]=useState('')
+    const [message,setMessage]=useState('')
+    const [isError,setIsError]=useState('')    
+    const [loading,setLoading] =useState(false)
+    const testExam=(event)=>{
+        event.preventDefault();
+      setLoading(true)
+    const   data={
+            category:category,
+            testTitle:courseTitle,
+            classID:classid,
+            studentID:student,
+            marks:marks,
+            term:term
 
-    if(token==='' || category!=='teacher' ){
-    history.push('/')
+        }
+
+    if(category==='' || marks ==='' ){
+     setMessage('Please fill all fields')
+     setLoading(false)
+     setIsError(true)
+    }else{
+        axios.post(`${urlPath.test}`,data,{headers:{
+            'Authorization':token
+        }})
+        .then((res)=>{
+            
+            setLoading(false)
+            setMessage(res.message)
+        })
+        .catch((err)=>{
+                setLoading(false)
+                setMessage(`Failed to add marks- ${err.message}`)
+        })
+
     }
+
+    } 
+    // END TEST
 
     
     //Exam integration
 
-   const [examcategory, setCategory]=useState('')
+   const [examcategory, setexamCategory]=useState('')
    const [examtitle, setTitle]=useState('')
    const [studentid, setStudentid]=useState('')
-   const [classid, setClassid]=useState('')
-   const [term, setTerm]=useState('')
-   const [marks, setMarks]=useState('')
-   const [loading,setLoading]=useState(false) 
-   const [message, setMessage]=useState(false)
+   const [examclassid, setexamClassid]=useState('')
+   const [examterm, setexamTerm]=useState('')
+   const [exammarks, setexamMarks]=useState('')
+   const [examloading,setexamLoading]=useState(false) 
+   const [exammessage, setexamMessage]=useState(false)
 
 
    const AddYearExamMarks = (event) =>{
@@ -84,24 +129,27 @@ function Dashboard() {
        const data={
            "examTitle":examtitle,
            "studentID":studentid,
-           "classID":classid,
-           "semester":term,
-           "marks":marks,
-           "category":category
+           "classID":examclassid,
+           "semester":examterm,
+           "marks":exammarks,
+           "category":examcategory
        }
-       setLoading(true)
+       setexamLoading(true)
        axios.post(`${urlPath.exam}`,data)
        .then((res)=>{
-           setMessage(res.data.message)
-           setLoading(false)
+           setexamMessage(res.data.message)
+           setexamLoading(false)
        })
        .catch((err)=>{
-           setMessage(err.message)
-           setLoading(false)
+            setexamMessage(err.message)
+            setexamLoading(false)
        })
 
    } 
-   
+//  end of exam inter  
+
+//  retrieve reviews 
+ 
     return(
         <>
            {/* Navbar top import */}
@@ -139,39 +187,47 @@ function Dashboard() {
                                     <Modal.Title><p>Adding Test marks</p></Modal.Title>
                                     </Modal.Header>
                                     <Modal.Body>
-                                        <form className="">
+                                        <form method="POST" className="">
+
+                                        {isError?  <div   className="bg-green-200 p-2 text-gray-600  font-bold rounded-xl mb-2">
+              <p className="text-center">{message}</p>
+              </div>
+              :<span></span>}
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Category</label>
                                                 <div class="col-sm-10">
-                                                    <input type="category" class="form-control" id="inputPassword" placeholder="Enter Category"/>
+                                                    <input type="category" value={category} onChange={(e)=>{
+                                                        setCategory(e.target.value)
+                                                    }} className="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter Category"/>
                                                 </div>   
                                             </div>
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Title</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter Test title"/>
+                                                    <input type="text" value={courseTitle} onChange={(e)=>setCourseTitle(e.target.value)} class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter Test title"/>
                                                 </div>   
                                             </div>
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Student</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter student id"/>
+                                                    <input type="text" value={student} onChange={(e)=>setStudent(e.target.value)} class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter student id"/>
                                                 </div>   
                                             </div>
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Class</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter class id"/>
+                                                    <input type="text" value={classid} onChange={(e)=>{setClassid(e.target.value)}}
+                                                     class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter class id"/>
                                                 </div>   
                                             </div>
                                             
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Term</label>
                                                 <div class="col-sm-10">
-                                                    <select class="form-control">
-                                                        <option>First Term</option>
-                                                        <option>Second Term</option>
-                                                        <option>Third Term</option>
+                                                    <select value={term} onChange={(e)=>setTerm(e.target.value)} class="border w-full px-2 py-2 ">
+                                                        <option value="First Term">First Term</option>
+                                                        <option value="Second Term">Second Term</option>
+                                                        <option value="Third Term">Third Term</option>
                                                     </select>
                                                 </div>   
                                             </div>
@@ -179,13 +235,13 @@ function Dashboard() {
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Marks</label>
                                                 <div class="col-sm-10">
-                                                    <input type="number" class="form-control" id="inputPassword" placeholder="Enter marks"/>
+                                                    <input type="text" value={marks} onChange={(e)=>setMarks(e.target.value)} class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter marks"/>
                                                 </div>   
                                             </div>
                                             
                                             <div class="form-group row">
                                                 <div class="col-sm-12">
-                                                  <button className="bg-blue-500 w-full p-2 rounded-lg hover:bg-blue-400 font-semibold text-white">Add Marks</button>
+                                              { loading ? <button  className="bg-blue-500 w-full p-2 rounded-lg hover:bg-blue-400 font-semibold text-white">Adding marks...</button>    :<button type="submit" onClick={testExam} className="bg-blue-500 w-full p-2 rounded-lg hover:bg-blue-400 font-semibold text-white">Add Marks</button>}
                                                 </div>   
                                             </div>
                                         </form>
@@ -215,32 +271,32 @@ function Dashboard() {
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Category</label>
                                                 <div class="col-sm-10">
-                                                    <input type="category" class="form-control" id="inputPassword" placeholder="Enter Category"/>
+                                                    <input type="category" class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter Category"/>
                                                 </div>   
                                             </div>
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Title</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter Assignment title"/>
+                                                    <input type="text" class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter Assignment title"/>
                                                 </div>   
                                             </div>
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Student</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter student id"/>
+                                                    <input type="text" class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter student id"/>
                                                 </div>   
                                             </div>
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Class</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter class id"/>
+                                                    <input type="text" class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter class id"/>
                                                 </div>   
                                             </div>
                                             
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Term</label>
                                                 <div class="col-sm-10">
-                                                    <select class="form-control">
+                                                    <select class="border w-full px-2 py-2 ">
                                                         <option>First Term</option>
                                                         <option>Second Term</option>
                                                         <option>Third Term</option>
@@ -251,7 +307,7 @@ function Dashboard() {
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Marks</label>
                                                 <div class="col-sm-10">
-                                                    <input type="number" class="form-control" id="inputPassword" placeholder="Enter marks"/>
+                                                    <input type="number" class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter marks"/>
                                                 </div>   
                                             </div>
                                             
@@ -283,13 +339,13 @@ function Dashboard() {
                                     <Modal.Body>
                                         <form className="">
                                             <div class="form-group row">
-                                               <p className="p-2 bg-blue-200 font-medium text-green-500">{message}</p>  
+                                               <p className="p-2 bg-blue-200 font-medium text-green-500">{exammessage}</p>  
                                             </div>
                                             
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Category</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" value={examcategory} onChange={event=>setCategory(event.target.value)} class="form-control" id="inputPassword" placeholder="Enter Category"/>
+                                                    <input type="text" value={examcategory} onChange={event=>setexamCategory(event.target.value)} class="form-control" id="inputPassword" placeholder="Enter Category"/>
                                                 </div>   
                                             </div>
                                             <div class="form-group row">
@@ -307,14 +363,14 @@ function Dashboard() {
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Class</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" value={classid} onChange={event=>setClassid(event.target.value)} class="form-control" id="inputPassword" placeholder="Enter class id"/>
+                                                    <input type="text" value={examclassid} onChange={event=>setexamClassid(event.target.value)} class="form-control" id="inputPassword" placeholder="Enter class id"/>
                                                 </div>   
                                             </div>
                                             
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Term</label>
                                                 <div class="col-sm-10">
-                                                    <select value={term} onChange={event=>setTerm(event.target.value)} class="form-control">
+                                                    <select value={examterm} onChange={event=>setexamTerm(event.target.value)} class="form-control">
                                                         <option>First Term</option>
                                                         <option>Second Term</option>
                                                         <option>Third Term</option>
@@ -325,13 +381,13 @@ function Dashboard() {
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Marks</label>
                                                 <div class="col-sm-10">
-                                                    <input type="number" class="form-control" id="inputPassword" placeholder="Enter marks"/>
+                                                    <input type="number" value={exammarks} onChange={event=>setexamMarks(event.target.value)} class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter marks"/>
                                                 </div>   
                                             </div>
                                             
                                             <div class="form-group row">
                                                 <div class="col-sm-12">
-                                                    {loading? <button className="bg-blue-500 w-full p-2 rounded-lg hover:bg-blue-400 font-semibold text-white"> saving marks ....</button>
+                                                    {examloading? <button className="bg-blue-500 w-full p-2 rounded-lg hover:bg-blue-400 font-semibold text-white"> saving marks ....</button>
                                                  :<button onClick={AddYearExamMarks} className="bg-blue-500 w-full p-2 rounded-lg hover:bg-blue-400 font-semibold text-white">Add Marks</button>}
                                                 </div>   
                                             </div>
@@ -360,32 +416,32 @@ function Dashboard() {
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Category</label>
                                                 <div class="col-sm-10">
-                                                    <input type="category" class="form-control" id="inputPassword" placeholder="Enter Category"/>
+                                                    <input type="category" class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter Category"/>
                                                 </div>   
                                             </div>
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Title</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter Innovation title"/>
+                                                    <input type="text" class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter Innovation title"/>
                                                 </div>   
                                             </div>
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Student</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter student id"/>
+                                                    <input type="text" class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter student id"/>
                                                 </div>   
                                             </div>
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Class</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="inputPassword" placeholder="Enter class id"/>
+                                                    <input type="text" class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter class id"/>
                                                 </div>   
                                             </div>
                                             
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Term</label>
                                                 <div class="col-sm-10">
-                                                    <select class="form-control">
+                                                    <select class="border w-full px-2 py-2 ">
                                                         <option>First Term</option>
                                                         <option>Second Term</option>
                                                         <option>Third Term</option>
@@ -396,7 +452,7 @@ function Dashboard() {
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Marks</label>
                                                 <div class="col-sm-10">
-                                                    <input type="number" class="form-control" id="inputPassword" placeholder="Enter marks"/>
+                                                    <input type="number" class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter marks"/>
                                                 </div>   
                                             </div>
                                             
