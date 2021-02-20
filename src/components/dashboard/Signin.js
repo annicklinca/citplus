@@ -4,9 +4,10 @@ import "../../css/tailwindcss.css";
 import "../../css/sign.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Cityplus from '../../images/Cityplus.png';
-import axios from 'axios'
-import urlPath from '../../constant'
+import axios from 'axios';
+import urlPath from '../../constant';
 import { useHistory } from 'react-router-dom';
+
 function Signin() {
 
   const history=useHistory()
@@ -35,7 +36,7 @@ function Signin() {
     
  axios.post(`${urlPath.login}`,data)
         .then((res)=>{
-
+        
          setMessage(res.data.message)
          localStorage.setItem('token', res.data.token)
          localStorage.setItem('fullname',res.data.data.fullname)

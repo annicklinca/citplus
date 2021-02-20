@@ -3,8 +3,9 @@ import "../../css/tailwindcss.css";
 import Cityplus from '../../images/Cityplus.png';
 import { FaAlignJustify } from 'react-icons/fa';
 import { FaTimes} from 'react-icons/fa';
-
+import { useHistory } from 'react-router-dom';
 function Navbar() {
+  const history =useHistory()
     const [small,setSmall]=useState(false);
     const [click,setClick]=useState(0);
 
@@ -19,6 +20,13 @@ function Navbar() {
 
         }
     }
+     const myname = localStorage.getItem('fullname')
+   const token =localStorage.getItem('token')
+   const category =localStorage.getItem('category')
+
+   if(token==='' || category!=='teacher' ){
+history.push('/') 
+}
     return(
         <>
 <div className=" bg-white ">

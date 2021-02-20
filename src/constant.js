@@ -6,7 +6,10 @@ const url ="https://cityplus-ida.herokuapp.com/"
     signup:`${url}create-account`,
     student:`${url}student`,
     classes:`${url}classes`,
-    assign:`${url}assign`
+    assign:`${url}assign`,
+    exam:`${url}exam`,
+    test:`${url}test`,
+    review:`${url}reviews`
 
 
 }

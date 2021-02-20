@@ -1,4 +1,4 @@
-import  React,{useState} from "react";
+import  React,{useState,useEffect} from "react";
 import "../../css/tailwindcss.css";
 import "../../css/dashboard.css";
 import Navbar from './Navbar';
@@ -74,6 +74,46 @@ setSec(today.getSeconds())
           amt: 2100,
         },
       ];
+      const calculateTimeLeft = () => {
+        let year = new Date().getFullYear();
+        const difference = +new Date(`${year}-4-12`) - +new Date();
+        let timeLeft = {};
+    
+        if (difference > 0) {
+          timeLeft = {
+            DAYS: Math.floor(difference / (1000 * 60 * 60 * 24)),
+            HRS: Math.floor((difference / (1000 * 60 * 60)) % 24),
+            MINS: Math.floor((difference / 1000 / 60) % 60),
+            SECS: Math.floor((difference / 1000) % 60),
+          };
+        }
+    
+        return timeLeft;
+      };
+    
+      const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+      const [year] = useState(new Date().getFullYear());
+    
+      useEffect(() => {
+        setTimeout(() => {
+          setTimeLeft(calculateTimeLeft());
+        }, 1000);
+      });
+    
+      const timerComponents = [];
+    
+      Object.keys(timeLeft).forEach((interval) => {
+        if (!timeLeft[interval]) {
+          return;
+        }
+    
+        timerComponents.push(
+          <span>
+            {timeLeft[interval]} {interval}{"   "}
+          </span>
+        );
+      });
+     
     
     return(
         <>
@@ -96,24 +136,28 @@ setSec(today.getSeconds())
                      <div className="m-2 p-2">
                          <span className="font-medium font-bold text-gray-700 text-2xl">{today.getDate()} {today.getMonth()} {today.getFullYear()}</span>
                          <div className="mt-4">
-                         <div class="grid grid-cols-4 gap-3">
+                         {timerComponents.length ? 
+                         <div className="grid grid-cols-4 gap-3">
                               <div className="bg-green-500">
-                                  <h2 className="pl-4 text-white font-bold font-medium ">{today.getDay()}</h2>
-                                  <h3 className="pl-3 text-white font-bold font-medium">DAYS</h3>
+                                  <h2 className=" px-2 py-3 text-white font-bold font-medium ">{timerComponents[0]}</h2>
+                                 
                               </div>
                              <div className="bg-green-500">
-                             <h2 className="pl-4 text-white font-bold font-medium ">{today.getHours()}  </h2>
-                             <h3 className="pl-3 text-white font-bold font-medium">HOUR</h3>
+                             <h2 className="px-3 py-3 text-white font-bold font-medium ">{timerComponents[1]}</h2>
+                            
                              </div>
                               <div className="bg-green-500">
-                              <h2 className="pl-4 text-white font-bold font-medium ">{today.getMinutes()}</h2>
-                              <h3 className="pl-3 text-white font-bold font-medium">MIN</h3>
+                              <h2 className="px-3 py-3 text-white font-bold font-medium ">{
+                                  timerComponents[2]
+                              }</h2>
+                             
                               </div>
                               <div className="bg-green-500">
-                              <h2 className="pl-4 text-white font-bold font-medium ">{sec}</h2>
-                             <h3 className="pl-3 text-white font-bold font-medium">SEC</h3>
+                              <h2 className="px-3 py-3 text-white font-bold font-medium ">{timerComponents[3]}</h2>
+                          
                               </div>
                               </div>
+                              : <span>TERM HAVE ENDED</span>}
                          </div>
                          <div className="mt-4 pt-4 row bg-white rounded-xl">
                              <h2 className="font-bold text-blue-900">Develop Your Talent</h2>
