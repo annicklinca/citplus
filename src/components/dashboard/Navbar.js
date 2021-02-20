@@ -29,10 +29,10 @@ history.push('/')
 }
     return(
         <>
-
-         <div className=" md:pr-10 sm:pr-10  md:pl-10 sm:pl-10  pt-2 pb-2 bg-white-100 flex">
+<div className=" bg-white ">
+         <div className=" bg-white-100 flex">
              <div className="float-left w-1/2">
-                 <img src={Cityplus} className="w-auto h-16 hover:cursor-pointer"/>
+                 <img src={Cityplus} className=" h-16 hover:cursor-pointer"/>
              </div>
              <div className="w-1/2 md:hidden">
                 
@@ -41,7 +41,7 @@ history.push('/')
                         :  <i onClick={openMenu} class="text-gray-600 float-right p-2 text-2xl"><FaAlignJustify/></i>  
 }              
              </div>
-         </div>
+         </div></div>
          {small?
             <div className="  md:hidden mb-20 md:mb-0 border-b border-gray-900">
               <div className="rounded-lg">

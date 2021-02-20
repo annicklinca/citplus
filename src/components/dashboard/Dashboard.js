@@ -3,7 +3,9 @@ import { Button } from 'react-bootstrap';
 import { Modal } from 'react-bootstrap';
 import "../../css/tailwindcss.css";
 import "../../css/dashboard.css";
-
+import { useHistory } from 'react-router-dom';
+import axios from 'axios';
+import urlPath from '../../constant';
 import Navbar from './Navbar';
 import NavLeft from './NavLeft';
 import { FaCalendarAlt } from 'react-icons/fa';
@@ -19,8 +21,10 @@ import { FaQuestion} from 'react-icons/fa';
 import { FaEnvelope} from 'react-icons/fa';
 import { FaEnvelNavLeftope} from 'react-icons/fa';
 import { FaPhoneSquare} from 'react-icons/fa';
-import axios from "axios";
-import urlPath from '../../constant'
+import ProgressBar from 'react-bootstrap/ProgressBar';
+import { Progress } from 'antd';
+
+
 
 function Dashboard() {
    
@@ -30,8 +34,145 @@ function Dashboard() {
     const [showTermExam, setTermExam] = useState(false);
     const [showYearExam, setYearExam] = useState(false);
     const [showInnovation, setInnovation] = useState(false);
+    const [datas,setDatas]= useState([]);
  
-   
+    const [limitn1,setLimn1]=useState()
+    const [limitn2,setLimn2]=useState()
+    const [limitn3,setLimn3]=useState()
+    const [limitp1,setLimp1]=useState() 
+    const [limitp2,setLimp2]=useState()
+    const [limitp5,setLimp5]=useState()
+    const [limitp4,setLimp4]=useState()
+    const [limitp3,setLimp3]=useState()
+    const [limitp6,setLimp6]=useState()
+    const [limits2,setLims2]=useState()
+    const [limits1,setLims1]=useState()
+    const [limits3,setLims3]=useState()
+    const [limits4,setLims4]=useState()
+    const [limits5,setLims5]=useState()
+    const [limits6,setLims6]=useState()
+
+    const myname = localStorage.getItem('fullname')
+    const token =localStorage.getItem('token')
+    
+
+
+useEffect(() => {
+    axios.get(urlPath.assign, { headers: {"Authorization" :token} })
+      .then((res) => {
+        if (res.data.data.length > 0) {
+            console.log(res.data.data)
+          setDatas([res.data.data])
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }, [])
+
+
+// const ctn1= datas.filter(e=> e.nameclass="1 st Class").map(filteredPerson => 
+//     setLimn1(filteredPerson.limitstudent)
+//     );
+// const percn1=ctn1.length*100/limitn1
+
+
+// const ctn2= datas.filter(e=> e.nameclass="2 nd Class").map(filteredPerson => (
+//     setLimn2(filteredPerson.limitstudent)
+//     ));
+// const percn2=ctn2.length*100/limitn2
+
+
+// const ctn3= datas.filter(e=> e.nameclass="3 nd Class").map(filteredPerson => (
+//     setLimn3(filteredPerson.limitstudent)
+//     ));
+// const percn3=ctn3.length*100/limitn3
+// primary section
+
+// const ctp1= datas.filter(e=> e.nameclass="P 1").map(filteredPerson => (
+//     setLimp1(filteredPerson.limitstudent)
+//     ));
+// const percp1=ctp1.length*100/limitp1
+
+
+// const ctp2= datas.filter(e=> e.nameclass="P 2").map(filteredPerson => (
+//     setLimp2(filteredPerson.limitstudent)
+//     ));
+// const percp2=ctp2.length*100/limitp2
+
+
+
+// const ctp3= datas.filter(e=> e.nameclass="P 3").map(filteredPerson => (
+//     setLimp3(filteredPerson.limitstudent)
+//     ));
+// const percp3=ctp3.length*100/limitp3
+
+
+
+// const ctp4= datas.filter(e=> e.nameclass="P 4").map(filteredPerson => (
+//     setLimp4(filteredPerson.limitstudent)
+//     ));
+// const percp4=ctp4.length*100/limitp4
+
+
+// const ctp5= datas.filter(e=> e.nameclass="P 5").map(filteredPerson => (
+//     setLimp5(filteredPerson.limitstudent)
+//     ));
+// const percp5=ctp5.length*100/limitp5
+
+
+// const ctp6= datas.filter(e=> e.nameclass="P 6").map(filteredPerson => (
+//     setLimp6(filteredPerson.limitstudent)
+//     ));
+// const percp6=ctp6.length*100/limitp6
+// // o-level
+
+// const cts1= datas.filter(e=> e.nameclass="Sinior 1").map(filteredPerson => (
+//     setLims1(filteredPerson.limitstudent)
+//     ));
+// const percs1=cts1.length*100/limits1
+
+
+// const cts2= datas.filter(e=> e.nameclass="Sinior 2").map(filteredPerson => (
+//     setLims2(filteredPerson.limitstudent)
+//     ));
+// const percs2=cts2.length*100/limits2
+
+
+// const cts3= datas.filter(e=> e.nameclass="Sinior 3").map(filteredPerson => (
+//     setLims3(filteredPerson.limitstudent)
+//     ));
+// const percs3=cts3.length*100/limits3
+// // a_level
+
+// const cts4= datas.filter(e=> e.nameclass="Sinior 4").map(filteredPerson => (
+//     setLims4(filteredPerson.limitstudent)
+//     ));
+// const percs4=cts4.length*100/limits4
+
+
+// const cts5= datas.filter(e=> e.nameclass="Sinior 5").map(filteredPerson => (
+//     setLims5(filteredPerson.limitstudent)
+//     ));
+// const percs5=cts5.length*100/limits5
+
+
+// const cts6= datas.filter(e=> e.nameclass="Sinior 6").map(filteredPerson => (
+//     setLims6(filteredPerson.limitstudent)
+//     ));
+// const percs6=cts6.length*100/limits6
+
+
+
+
+
+
+
+
+
+
+
+
     const handleTest = () => {
         setShow(true);
     }
@@ -58,11 +199,15 @@ function Dashboard() {
         setYearExam(false);
         setInnovation(false);
     }
-    const myname = localStorage.getItem('fullname')
-    const token =localStorage.getItem('token')
+   
+    
+    // if(token==='' || category!=='teacher' ){
+    //     history.push('/')
+    //     }
+    
     // const category =localStorage.getItem('category')
      // test========================
-    const [category,setCategory]=useState('')
+     const [category,setCategory]=useState('')
     const [courseTitle,setCourseTitle] =useState('')
     const [classid,setClassid]=useState('')
     const [student,setStudent]=useState('')
@@ -71,7 +216,6 @@ function Dashboard() {
     const [message,setMessage]=useState('')
     const [isError,setIsError]=useState('')    
     const [loading,setLoading] =useState(false)
-
     const testExam=(event)=>{
         event.preventDefault();
       setLoading(true)
@@ -90,7 +234,7 @@ function Dashboard() {
      setLoading(false)
      setIsError(true)
     }else{
-        axios.post(`${urlPath.signup}`,data,{headers:{
+        axios.post(`${urlPath.test}`,data,{headers:{
             'Authorization':token
         }})
         .then((res)=>{
@@ -105,10 +249,48 @@ function Dashboard() {
 
     }
 
-
-    }
-    
+    } 
     // END TEST
+
+    
+    //Exam integration
+
+   const [examcategory, setexamCategory]=useState('')
+   const [examtitle, setTitle]=useState('')
+   const [studentid, setStudentid]=useState('')
+   const [examclassid, setexamClassid]=useState('')
+   const [examterm, setexamTerm]=useState('')
+   const [exammarks, setexamMarks]=useState('')
+   const [examloading,setexamLoading]=useState(false) 
+   const [exammessage, setexamMessage]=useState(false)
+
+
+   const AddYearExamMarks = (event) =>{
+       event.preventDefault()
+       const data={
+           "examTitle":examtitle,
+           "studentID":studentid,
+           "classID":examclassid,
+           "semester":examterm,
+           "marks":exammarks,
+           "category":examcategory
+       }
+       setexamLoading(true)
+       axios.post(`${urlPath.exam}`,data)
+       .then((res)=>{
+           setexamMessage(res.data.message)
+           setexamLoading(false)
+       })
+       .catch((err)=>{
+            setexamMessage(err.message)
+            setexamLoading(false)
+       })
+
+   } 
+//  end of exam inter  
+
+//  retrieve reviews 
+ 
     return(
         <>
            {/* Navbar top import */}
@@ -128,7 +310,7 @@ function Dashboard() {
                <div className="bg-blue-100 rounded-lg md:mr-4 flex flex-wrap"> 
                 <div className="w-full md:w-2/6 md:pl-8">
                      <div className="m-2 p-2">
-                         <span className="font-medium font-sans text-gray-700 text-2xl">Dear {myname} <br/> Good Lucky Today!</span>
+                         <span className="font-medium font-sans text-gray-700 text-2xl capitalize">Dear <span>{myname}</span> <br/> Good Lucky Today!</span>
                          <div className="mt-4">
                           <span className="font-normal">Mathematich</span><br/>
                           <span className="font-normal">Physics</span>
@@ -148,7 +330,7 @@ function Dashboard() {
                                     <Modal.Body>
                                         <form method="POST" className="">
 
-                                        { isError?  <div   className="bg-green-200 p-2 text-gray-600  font-bold rounded-xl mb-2">
+                                        {isError?  <div   className="bg-green-200 p-2 text-gray-600  font-bold rounded-xl mb-2">
               <p className="text-center">{message}</p>
               </div>
               :<span></span>}
@@ -206,12 +388,18 @@ function Dashboard() {
                                         </form>
                                     </Modal.Body>
                                 </Modal>
+                             
                           
                           </div>
                           <div className="col-6 flex gap-1">
-                              <span className="flex text-sm text-green-400"><FaSquare/><FaSquare/><FaSquare/></span>
-                              <span className="flex text-sm text-blue-400"><FaSquare/><FaSquare className="text-gray-400"/><FaSquare className="text-gray-400"/></span>
+                              
+                              <span className="flex text-sm text-gray-400"><FaSquare/><FaSquare/><FaSquare/></span>
+                              <span className="flex text-sm text-blue-400"><FaSquare/><FaSquare className="text-gray-400"/>
+                              <FaSquare className="text-gray-400"/></span>
                               <span className="flex text-sm text-pink-400"><FaSquare/><FaSquare/><FaSquare /></span>
+                         
+                         
+                         
                           </div>
                           <div className="col-6">
 
@@ -285,148 +473,7 @@ function Dashboard() {
                               <span className="flex text-sm text-pink-400"><FaSquare/><FaSquare/><FaSquare/></span>
                           </div>
                           <div className="col-6">
-                              <snap className="font-normal hover:cursor-pointer" onClick={handleMiddleTermExam}><a href="#">Middle Term Exam</a></snap>
-                                <Modal
-                                    show={showMiddleTermExam}
-                                    onHide={handleClose}
-                                    backdrop="static"
-                                    keyboard=""
-                                >
-                                    <Modal.Header closeButton>
-                                    <Modal.Title><p>Adding Middle Term Exam marks</p></Modal.Title>
-                                    </Modal.Header>
-                                    <Modal.Body>
-                                        <form className="">
-                                            <div class="form-group row">
-                                                <label for="inputPassword" class="col-sm-2 col-form-label">Category</label>
-                                                <div class="col-sm-10">
-                                                    <input type="category" class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter Category"/>
-                                                </div>   
-                                            </div>
-                                            <div class="form-group row">
-                                                <label for="inputPassword" class="col-sm-2 col-form-label">Title</label>
-                                                <div class="col-sm-10">
-                                                    <input type="text" class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter Middle term title"/>
-                                                </div>   
-                                            </div>
-                                            <div class="form-group row">
-                                                <label for="inputPassword" class="col-sm-2 col-form-label">Student</label>
-                                                <div class="col-sm-10">
-                                                    <input type="text" class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter student id"/>
-                                                </div>   
-                                            </div>
-                                            <div class="form-group row">
-                                                <label for="inputPassword" class="col-sm-2 col-form-label">Class</label>
-                                                <div class="col-sm-10">
-                                                    <input type="text" class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter class id"/>
-                                                </div>   
-                                            </div>
-                                            
-                                            <div class="form-group row">
-                                                <label for="inputPassword" class="col-sm-2 col-form-label">Term</label>
-                                                <div class="col-sm-10">
-                                                    <select class="border w-full px-2 py-2 ">
-                                                        <option>First Term</option>
-                                                        <option>Second Term</option>
-                                                        <option>Third Term</option>
-                                                    </select>
-                                                </div>   
-                                            </div>
-                                            
-                                            <div class="form-group row">
-                                                <label for="inputPassword" class="col-sm-2 col-form-label">Marks</label>
-                                                <div class="col-sm-10">
-                                                    <input type="number" class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter marks"/>
-                                                </div>   
-                                            </div>
-                                            
-                                            <div class="form-group row">
-                                                <div class="col-sm-12">
-                                                  <button className="bg-blue-500 w-full p-2 rounded-lg hover:bg-blue-400 font-semibold text-white">Add Marks</button>
-                                                </div>   
-                                            </div>
-                                        </form>
-                                    </Modal.Body>
-                                </Modal>
-                          </div>
-
-                          <div className="col-6 flex gap-1">
-                              <span className="flex text-sm text-green-400"><FaSquare/><FaSquare/><FaSquare/></span>
-                              <span className="flex text-sm text-blue-400"><FaSquare/><FaSquare/><FaSquare className="text-gray-400"/></span>
-                              <span className="flex text-sm text-pink-400"><FaSquare/><FaSquare/><FaSquare/></span>
-                          </div>
-                          <div className="col-6">
-                              <snap className="font-normal hover:cursor-pointer" onClick={handleTermExam}><a href="#">Term Exam</a></snap>
-                              <Modal
-                                    show={showTermExam}
-                                    onHide={handleClose}
-                                    backdrop="static"
-                                    keyboard=""
-                                >
-                                    <Modal.Header closeButton>
-                                    <Modal.Title><p>Adding Term Exams marks</p></Modal.Title>
-                                    </Modal.Header>
-                                    <Modal.Body>
-                                        <form className="">
-                                            <div class="form-group row">
-                                                <label for="inputPassword" class="col-sm-2 col-form-label">Category</label>
-                                                <div class="col-sm-10">
-                                                    <input type="category" class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter Category"/>
-                                                </div>   
-                                            </div>
-                                            <div class="form-group row">
-                                                <label for="inputPassword" class="col-sm-2 col-form-label">Title</label>
-                                                <div class="col-sm-10">
-                                                    <input type="text" class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter Term Exam title"/>
-                                                </div>   
-                                            </div>
-                                            <div class="form-group row">
-                                                <label for="inputPassword" class="col-sm-2 col-form-label">Student</label>
-                                                <div class="col-sm-10">
-                                                    <input type="text" class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter student id"/>
-                                                </div>   
-                                            </div>
-                                            <div class="form-group row">
-                                                <label for="inputPassword" class="col-sm-2 col-form-label">Class</label>
-                                                <div class="col-sm-10">
-                                                    <input type="text" class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter class id"/>
-                                                </div>   
-                                            </div>
-                                            
-                                            <div class="form-group row">
-                                                <label for="inputPassword" class="col-sm-2 col-form-label">Term</label>
-                                                <div class="col-sm-10">
-                                                    <select class="border w-full px-2 py-2 ">
-                                                        <option>First Term</option>
-                                                        <option>Second Term</option>
-                                                        <option>Third Term</option>
-                                                    </select>
-                                                </div>   
-                                            </div>
-                                            
-                                            <div class="form-group row">
-                                                <label for="inputPassword" class="col-sm-2 col-form-label">Marks</label>
-                                                <div class="col-sm-10">
-                                                    <input type="number" class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter marks"/>
-                                                </div>   
-                                            </div>
-                                            
-                                            <div class="form-group row">
-                                                <div class="col-sm-12">
-                                                  <button className="bg-blue-500 w-full p-2 rounded-lg hover:bg-blue-400 font-semibold text-white">Add Marks</button>
-                                                </div>   
-                                            </div>
-                                        </form>
-                                    </Modal.Body>
-                                </Modal>
-                          </div>
-                          <div className="col-6 flex gap-1">
-                              <span className="flex text-sm text-green-400"><FaSquare/><FaSquare/><FaSquare/></span>
-                              <span className="flex text-sm text-blue-400"><FaSquare className="text-gray-400"/><FaSquare className="text-gray-400"/><FaSquare className="text-gray-400"/></span>
-                              <span className="flex text-sm text-pink-400"><FaSquare/><FaSquare/><FaSquare/></span>
-                          </div>
-                          <div className="col-6">
-                              <snap className="font-normal hover:cursor-pointer" onClick={handleYearExam}><a href="#">Year Exam</a></snap>
+                              <snap className="font-normal hover:cursor-pointer" onClick={handleYearExam}><a href="#">Exam</a></snap>
                                 <Modal
                                     show={showYearExam}
                                     onHide={handleClose}
@@ -439,34 +486,38 @@ function Dashboard() {
                                     <Modal.Body>
                                         <form className="">
                                             <div class="form-group row">
+                                               <p className="p-2 bg-blue-200 font-medium text-green-500">{exammessage}</p>  
+                                            </div>
+                                            
+                                            <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Category</label>
                                                 <div class="col-sm-10">
-                                                    <input type="category" class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter Category"/>
+                                                    <input type="text" value={examcategory} onChange={event=>setexamCategory(event.target.value)} class="form-control" id="inputPassword" placeholder="Enter Category"/>
                                                 </div>   
                                             </div>
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Title</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter Exam title"/>
+                                                    <input type="text" value={examtitle} onChange={event=>setTitle(event.target.value)} class="form-control" id="inputPassword" placeholder="Enter Exam title"/>
                                                 </div>   
                                             </div>
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Student</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter student id"/>
+                                                    <input type="text" value={studentid} onChange={event=>setStudentid(event.target.value)} class="form-control" id="inputPassword" placeholder="Enter student id"/>
                                                 </div>   
                                             </div>
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Class</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter class id"/>
+                                                    <input type="text" value={examclassid} onChange={event=>setexamClassid(event.target.value)} class="form-control" id="inputPassword" placeholder="Enter class id"/>
                                                 </div>   
                                             </div>
                                             
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Term</label>
                                                 <div class="col-sm-10">
-                                                    <select class="border w-full px-2 py-2 ">
+                                                    <select value={examterm} onChange={event=>setexamTerm(event.target.value)} class="form-control">
                                                         <option>First Term</option>
                                                         <option>Second Term</option>
                                                         <option>Third Term</option>
@@ -477,13 +528,14 @@ function Dashboard() {
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-2 col-form-label">Marks</label>
                                                 <div class="col-sm-10">
-                                                    <input type="number" class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter marks"/>
+                                                    <input type="number" value={exammarks} onChange={event=>setexamMarks(event.target.value)} class="border w-full px-2 py-2 " id="inputPassword" placeholder="Enter marks"/>
                                                 </div>   
                                             </div>
                                             
                                             <div class="form-group row">
                                                 <div class="col-sm-12">
-                                                  <button className="bg-blue-500 w-full p-2 rounded-lg hover:bg-blue-400 font-semibold text-white">Add Marks</button>
+                                                    {examloading? <button className="bg-blue-500 w-full p-2 rounded-lg hover:bg-blue-400 font-semibold text-white"> saving marks ....</button>
+                                                 :<button onClick={AddYearExamMarks} className="bg-blue-500 w-full p-2 rounded-lg hover:bg-blue-400 font-semibold text-white">Add Marks</button>}
                                                 </div>   
                                             </div>
                                         </form>
@@ -571,52 +623,167 @@ function Dashboard() {
                          <h2 className="font-medium text-lg text-blue-900">Classes</h2>
                          <div className="pl-3 pt-2">
                              <h4 className="font-medium text-blue-900">Nursery</h4>
-                             <div className="row pl-3">
+                             <div className="row  pl-2">
                                  <div className="col-4 font-normal"><snap>1st Class</snap></div>
-                                 <div className="col-8 font-normal text-sm"><span>---------------128</span></div>
+                                 <div className="col-8 font-normal text-sm flex">
+                                     <span className="w-full "> <ProgressBar variant="dark" now={1}  /> 
+                                   
+                                     </span>
+                                     <span className="w-12 ml-2">
+            
+                                     {14}
+                                     </span>
+                                     
+                                     
+                                     </div>
                                  <div className="col-4 font-normal"><snap>2nd Class</snap></div>
-                                 <div className="col-8 font-normal text-sm"><span>---------------------------145</span></div>
+                                 <div className="col-8 font-normal text-sm flex">
+                                     <span className="w-full"><ProgressBar variant="dark" now={1} /> </span>
+                                     <span className="w-12 ml-2">
+                                     {13}</span>
+                                     
+                                     
+                                     </div>
+
                                  <div className="col-4 font-normal"><snap>3rd Class</snap></div>
-                                 <div className="col-8 font-normal text-sm"><span>--------------------130</span></div>
-                             </div>
+<div className="col-8 font-normal text-sm flex">
+                                     <span className="w-full"><ProgressBar variant="dark" now={1}  /> </span>
+                                     <span className="w-12 ml-2">
+                                     {16}</span>
+                                     
+                                     
+                                     </div>                             </div>
                          </div>
                          <div className="pl-3 pt-2">
                              <h4 className="font-medium text-blue-900">Primary</h4>
-                             <div className="row pl-3">
+                             <div className="row pl-2">
                                  <div className="col-4 font-normal"><snap>P 1</snap></div>
-                                 <div className="col-8 font-normal text-sm"><span>---------------128</span></div>
-                                 <div className="col-4 font-normal"><snap>P 2</snap></div>
-                                 <div className="col-8 font-normal text-sm"><span>---------------------------145</span></div>
-                                 <div className="col-4 font-normal"><snap>P 3</snap></div>
-                                 <div className="col-8 font-normal text-sm"><span>--------------------130</span></div>
-                                 <div className="col-4 font-normal"><snap>P 4</snap></div>
-                                 <div className="col-8 font-normal text-sm"><span>--------------------130</span></div>
-                                 <div className="col-4 font-normal"><snap>P 5</snap></div>
-                                 <div className="col-8 font-normal text-sm"><span>--------------------130</span></div>
-                                 <div className="col-4 font-normal"><snap>P 6</snap></div>
-                                 <div className="col-8 font-normal text-sm"><span>--------------------130</span></div>
-                             </div>
+                                 <div className="col-8 font-normal text-sm flex">
+                                     <span className="w-full"><ProgressBar variant="dark" now={42}  /> </span>
+                                     <span className="w-12 ml-2">
+                                     {12}</span>
+                                     
+                                     
+                                     </div> 
+                                     
+                                     
+                                     
+                                    <div className="col-4 font-normal"><snap>P 2</snap></div>
+                                    <div className="col-8 font-normal text-sm flex">
+                                     <span className="w-full"><ProgressBar variant="dark" now={32}  /> </span>
+                                     <span className="w-12 ml-2">
+                                     {22}
+                                     </span>
+                                     
+                                     
+                                     </div>          
+                                     <div className="col-4 font-normal"><snap>P 3</snap></div>
+                                     
+                                                            <div className="col-8 font-normal text-sm flex">
+                                     <span className="w-full"><ProgressBar variant="dark" now={22}  /> </span>
+                                     <span className="w-12 ml-2">
+                                     {22}
+                                     </span>
+                                     
+                                     
+                                     </div>   
+
+                                     <div className="col-4 font-normal"><snap>P 4</snap></div>
+                                     
+                                     <div className="col-8 font-normal text-sm flex">
+              <span className="w-full"><ProgressBar variant="dark" now={22}  /> </span>
+              <span className="w-12 ml-2">
+              {44}
+              </span>
+              
+              
+              </div>   
+
+
+                                     
+                                     <div className="col-4 font-normal"><snap>P 5</snap></div>
+                                 
+                                 <div className="col-8 font-normal text-sm flex">
+                                     <span className="w-full"><ProgressBar variant="dark" now={44}  /> </span>
+                                     <span className="w-12 ml-2">
+                                     {44}
+                                     </span>
+                                     
+                                     
+                                     </div>                                
+                                      
+                                   
+                                         <div className="col-4 font-normal"><snap>P 6</snap></div>
+                                         <div className="col-8 font-normal text-sm flex">
+                                     <span className="w-full"><ProgressBar variant="dark" now={44}   /> </span>
+                                     <span className="w-12 ml-2">
+                                     {44}
+                                     </span>
+                                     
+                                     
+                                     </div>                             </div>
                          </div>
                          <div className="pl-3 pt-2">
                              <h4 className="font-medium text-blue-900">O-Level</h4>
-                             <div className="row pl-3">
-                                 <div className="col-4 font-normal"><snap>Sinior 1</snap></div>
-                                 <div className="col-8 font-normal text-sm"><span>---------------128</span></div>
+                             <div className="row pl-2">
+                                 <div className="col-4 font-normal"><snap>Sinior 1</snap></div><div className="col-8 font-normal text-sm flex">
+                                     <span className="w-full"><ProgressBar variant="dark" now={44}  /> </span>
+                                     <span className="w-12 ml-2">
+                                     {45}
+                                     </span>
+                                     
+                                     
+                                     </div>
                                  <div className="col-4 font-normal"><snap>Sinior 2</snap></div>
-                                 <div className="col-8 font-normal text-sm"><span>---------------------------145</span></div>
+                                 <div className="col-8 font-normal text-sm flex">
+                                     <span className="w-full"><ProgressBar variant="dark" now={52}  /> </span>
+                                     <span className="w-12 ml-2">
+                                     {45}
+                                     </span>
+                                     
+                                     
+                                     </div>
                                  <div className="col-4 font-normal"><snap>Sinior 3</snap></div>
-                                 <div className="col-8 font-normal text-sm"><span>--------------------130</span></div>
+                                 <div className="col-8 font-normal text-sm flex">
+                                     <span className="w-full"><ProgressBar variant="dark" now={44}  /> </span>
+                                     <span className="w-12 ml-2">
+                                     {44}
+                                     </span>
+                                     
+                                     
+                                     </div>
                              </div>
                          </div>
                          <div className="pl-3 pt-2">
                              <h4 className="font-medium text-blue-900">E-Level</h4>
-                             <div className="row pl-3">
+                             <div className="row pl-2">
                                  <div className="col-4 font-normal"><snap>Sinior 4</snap></div>
-                                 <div className="col-8 font-normal text-sm"><span>---------------128</span></div>
+                                 <div className="col-8 font-normal text-sm flex">
+                                     <span className="w-full"><ProgressBar variant="dark" now={44}   /> </span>
+                                     <span className="w-12 ml-2">
+                                     {44}
+                                     </span>
+                                     
+                                     
+                                     </div>
                                  <div className="col-4 font-normal"><snap>Sinior 5</snap></div>
-                                 <div className="col-8 font-normal text-sm"><span>---------------------------145</span></div>
+                                 <div className="col-8 font-normal text-sm flex">
+                                     <span className="w-full"><ProgressBar variant="dark" now={4}  /> </span>
+                                     <span className="w-12 ml-2">
+                                     {44}
+                                     </span>
+                                     
+                                     
+                                     </div>
                                  <div className="col-4 font-normal"><snap>Sinior 6</snap></div>
-                                 <div className="col-8 font-normal text-sm"><span>--------------------130</span></div>
+                                 <div className="col-8 font-normal text-sm flex">
+                                     <span className="w-full"><ProgressBar variant="dark" now={44} /> </span>
+                                     <span className="w-12 ml-2">
+                                     {44}
+                                     </span>
+                                     
+                                     
+                                     </div>
                              </div>
                          </div>
                      </div>
@@ -654,7 +821,7 @@ function Dashboard() {
                         <div className="col-md-7 mt-2">
                            <div className="row md:m-1  bg-white rounded-xl shadow-lg">
                               <div className="col-8 pl-4 py-5 pt-2 pb-2">
-                                <span className="font-medium font-sans text-gray-700 text-xl">Hello,{myname}</span>
+                                <span className="font-medium font-sans text-gray-700 text-xl capitalize">Hello, {myname}</span>
                                 <div className="mt-2">
                                 <span className="font-normal text-sm">Remember to submit all student's quiz for reporting processing <br/> Have a nice day! </span><br/>
                                 <button className="bg-blue-600 hover:bg-blue-500 m-1 p-1 shadow-md text-gray-100 font-medium w-full rounded-xl">Submit</button>
@@ -669,10 +836,10 @@ function Dashboard() {
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-md-12"> 
-                            <div className="row bg-white rounded-xl shadow-lg md:mr-6 md:ml-3 pt-4 pb-4">     
+                        <div className=""> 
+                            <div className="row bg-white rounded-xl shadow-lg md:mr-6 md:ml-3 p-4">     
                                 <div className=" col-sm-12 col-md-3">
-                                    <div className="p-2 bg-gray-100 hover:bg-blue-100 shadow-md rounded-lg">
+                                    <div className=" bg-gray-100 hover:bg-blue-100 shadow-md rounded-lg">
                                         <a href="">
                                             <div class="row p-1">
                                                 <div className="col-md-12 justify-center ">
@@ -860,9 +1027,13 @@ function Dashboard() {
                 </div>
             </div>
             </div>
+          
         </div>
+      
         </>
     )
+    
+   
   
 }
 export default Dashboard;

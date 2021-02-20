@@ -20,6 +20,16 @@ import { FaAngleLeft} from 'react-icons/fa';
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
 function Timetable() {
+    var today = new Date()
+const {sec,setSec}=useState('')
+
+setSec(today.getSeconds())
+
+    
+
+   
+   
+  
     const data = [
         {
           name: '2010',
@@ -124,7 +134,7 @@ function Timetable() {
                <div className="bg-blue-100 rounded-lg md:mr-4 flex flex-wrap"> 
                 <div className="w-full md:w-2/6 md:pl-8">
                      <div className="m-2 p-2">
-                         <span className="font-medium font-bold text-gray-700 text-2xl">April 1, 2021</span>
+                         <span className="font-medium font-bold text-gray-700 text-2xl">{today.getDate()} {today.getMonth()} {today.getFullYear()}</span>
                          <div className="mt-4">
                          {timerComponents.length ? 
                          <div className="grid grid-cols-4 gap-3">

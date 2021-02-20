@@ -1,9 +1,15 @@
+
 const url ="https://cityplus-ida.herokuapp.com/"
 
  const urlPath ={
     login:`${url}login`,
     signup:`${url}create-account`,
-    test:`${url}test`
+    student:`${url}student`,
+    classes:`${url}classes`,
+    assign:`${url}assign`,
+    exam:`${url}exam`,
+    test:`${url}test`,
+    review:`${url}reviews`
 
 
 }
