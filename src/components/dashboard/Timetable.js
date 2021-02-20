@@ -18,31 +18,13 @@ import { FaEnvelope} from 'react-icons/fa';
 import { FaPhoneSquare} from 'react-icons/fa';
 import { FaAngleLeft} from 'react-icons/fa';
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
-import WordLimit from 'react-word-limit';
 
 function Timetable() {
+    var today = new Date()
+const {sec,setSec}=useState('')
 
-  
-        const [date, setDate] = React.useState(new Date());
-      
-       //Replaces componentDidMount and componentWillUnmount
-       React.useEffect(() => {
-        var timerID = setInterval( () => tick(), 1000 );
-        return function cleanup() {
-            clearInterval(timerID);
-          };
-       });
-      
-         function tick() {
-          setDate(new Date());
-         }
-      
-      
-         var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-         var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-         var dayw = days[ date.getDay() ];
-         var monthw = months[ date.getMonth() ];
-         
+setSec(today.getSeconds())
+
     
 
    
@@ -112,27 +94,23 @@ function Timetable() {
                <div className="bg-blue-100 rounded-lg md:mr-4 flex flex-wrap"> 
                 <div className="w-full md:w-2/6 md:pl-8">
                      <div className="m-2 p-2">
-                         <span className="font-medium font-bold text-gray-700 text-2xl">{dayw} {date.getDate()} {monthw}  {date.getUTCFullYear()}</span>
+                         <span className="font-medium font-bold text-gray-700 text-2xl">{today.getDate()} {today.getMonth()} {today.getFullYear()}</span>
                          <div className="mt-4">
                          <div class="grid grid-cols-4 gap-3">
                               <div className="bg-green-500">
-                                  <h2 className="pl-2 text-white font-bold font-medium ">
-                                  <WordLimit limit={3}>  
-                                      {dayw}
-                                      </WordLimit>
-                                      </h2>
+                                  <h2 className="pl-4 text-white font-bold font-medium ">{today.getDay()}</h2>
                                   <h3 className="pl-3 text-white font-bold font-medium">DAYS</h3>
                               </div>
                              <div className="bg-green-500">
-                             <h2 className="pl-4 text-white font-bold font-medium ">{date.getUTCHours()}</h2>
+                             <h2 className="pl-4 text-white font-bold font-medium ">{today.getHours()}  </h2>
                              <h3 className="pl-3 text-white font-bold font-medium">HOUR</h3>
                              </div>
                               <div className="bg-green-500">
-                              <h2 className="pl-4 text-white font-bold font-medium ">{date.getUTCMinutes()}</h2>
+                              <h2 className="pl-4 text-white font-bold font-medium ">{today.getMinutes()}</h2>
                               <h3 className="pl-3 text-white font-bold font-medium">MIN</h3>
                               </div>
                               <div className="bg-green-500">
-                              <h2 className="pl-4 text-white font-bold font-medium ">{date.getUTCSeconds()}</h2>
+                              <h2 className="pl-4 text-white font-bold font-medium ">{sec}</h2>
                              <h3 className="pl-3 text-white font-bold font-medium">SEC</h3>
                               </div>
                               </div>

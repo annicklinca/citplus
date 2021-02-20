@@ -23,7 +23,7 @@ function Signin() {
     const data={
 
       email:email,
-          password:password
+      password:password
     }
     setLoading(true)
     if( email ==='' ||password==='' ){
@@ -37,10 +37,11 @@ function Signin() {
         .then((res)=>{
 
          setMessage(res.data.message)
-         localStorage.setItem('token', res.data.data.token)
+         localStorage.setItem('token', res.data.token)
          localStorage.setItem('fullname',res.data.data.fullname)
          localStorage.setItem('email',res.data.data.email)
          localStorage.setItem('category',res.data.data.category)
+        
          setTimeout(() => {
            history.push('/home')
          }, 1000);
@@ -59,34 +60,34 @@ function Signin() {
     return(
         <>
 
-<div class="container">
-    <div class="row mt-24">
-      <div class="col-lg-10 col-xl-9 mx-auto">
-        <div class="card card-signin flex-row my-5">
-          <div class="card-img-left d-none d-md-flex">
+<div className="container">
+    <div className="row mt-24">
+      <div className="col-lg-10 col-xl-9 mx-auto">
+        <div className="card card-signin flex-row my-5">
+          <div className="card-img-left d-none d-md-flex">
             
           </div>
-          <div class="card-body">
+          <div className="card-body">
             <img src={Cityplus} className="w-20 float-right" alt="" />  
-            <h5 class="card-title text-blue-500">Login Account</h5>
+            <h5 className="card-title text-blue-500">Login Account</h5>
             { isError?  <div   className="bg-green-200 p-2 text-gray-600  font-bold rounded-xl mb-2">
               <p className="text-center">{message}</p>
               </div>
               :<span></span>}
-            <form class="form-signin">
+            <form className="form-signin">
               
-              <div class="form-label-group">
+              <div className="form-label-group">
                 <input type="email" value={email} onChange={(e)=>{
                   setEmail(e.target.value)
-                }} id="inputEmail" class="form-control" placeholder="Email address" required />
+                }} id="inputEmail" className="form-control" placeholder="Email address" required />
                 <label for="inputEmail">Username or Email</label>
               </div>
               
 
-              <div class="form-label-group">
+              <div className="form-label-group">
                 <input type="password" value={password} onChange={(e)=>{
                   setPassword(e.target.value)
-                }} id="inputPassword" class="form-control" placeholder="Password" required />
+                }} id="inputPassword" className="form-control" placeholder="Password" required />
                 <label for="inputPassword">Password</label>
               </div>
               <div className="from-label-group p-1">
@@ -104,7 +105,7 @@ function Signin() {
               </p>
              </div> 
              
-              <hr class="my-4" />
+              <hr className="my-4" />
             </form>
           </div>
         </div>

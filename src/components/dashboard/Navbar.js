@@ -21,7 +21,7 @@ function Navbar() {
     }
     return(
         <>
-<div className=" bg-blue-300 ">
+<div className=" bg-white ">
          <div className=" bg-white-100 flex">
              <div className="float-left w-1/2">
                  <img src={Cityplus} className=" h-16 hover:cursor-pointer"/>
