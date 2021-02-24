@@ -55,6 +55,18 @@ useEffect( ()=>{
 },[]
 );
 
+useEffect(() => {
+    axios.get(urlPath.assign, { headers: {"Authorization" :token} })
+      .then((res) => {
+        if (res.data.data.length > 0) {
+            console.log(res.data.data)
+          setDatas([res.data.data])
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }, [])
 
 const [datasn2,setDatasn2]= useState([]);
 useEffect( ()=>{    
@@ -859,6 +871,7 @@ useEffect( ()=>{
                                      
                                      </div>
                                      )})}  
+
                                  <div className="col-4 font-normal"><snap>Sinior 2</snap></div>
                                  {datass2.slice(0,1).map((item,key)=>{return(                             
                                      
