@@ -26,7 +26,7 @@ import { Progress } from 'antd';
 
 
 
-function Dashboard() {
+function Dashboard(){
    
     const [show, setShow] = useState(false);
     const [showAssginment, setShowAssign] = useState(false);
@@ -35,23 +35,6 @@ function Dashboard() {
     const [showYearExam, setYearExam] = useState(false);
     const [showInnovation, setInnovation] = useState(false);
     const [datas,setDatas]= useState([]);
- 
-    const [limitn1,setLimn1]=useState()
-    const [limitn2,setLimn2]=useState()
-    const [limitn3,setLimn3]=useState()
-    const [limitp1,setLimp1]=useState() 
-    const [limitp2,setLimp2]=useState()
-    const [limitp5,setLimp5]=useState()
-    const [limitp4,setLimp4]=useState()
-    const [limitp3,setLimp3]=useState()
-    const [limitp6,setLimp6]=useState()
-    const [limits2,setLims2]=useState()
-    const [limits1,setLims1]=useState()
-    const [limits3,setLims3]=useState()
-    const [limits4,setLims4]=useState()
-    const [limits5,setLims5]=useState()
-    const [limits6,setLims6]=useState()
-
     const myname = localStorage.getItem('fullname')
     const token =localStorage.getItem('token')
     
@@ -60,125 +43,183 @@ function Dashboard() {
 
   
 useEffect( ()=>{    
- const students=axios.get(`${urlPath.assign}`, { headers: {"Authorization" :token} })
+ const students=axios.get(`${urlPath.assign}/n1`, { headers: {"Authorization" :token} })
  .then(res=>{
-     setDatas(res.data.data)
-     console.log(res.data.data)
+    setDatas(res.data.data)
+    
 
- 
-   
   })
   .catch((err)=>{
-      console.log(err)
-    
-    
+    //   console.log(err)
   })
 },[]
 );
 
 
+const [datasn2,setDatasn2]= useState([]);
+useEffect( ()=>{    
+    const students=axios.get(`${urlPath.assign}/n2`, { headers: {"Authorization" :token} })
+    .then(res=>{
+       setDatasn2(res.data.data)
+     })
+     .catch((err)=>{
+       //   console.log(err)
+     })
+   },[]
+   );
+   const [datasn3,setDatasn3]= useState([]);
+useEffect( ()=>{    
+    const students=axios.get(`${urlPath.assign}/n3`, { headers: {"Authorization" :token} })
+    .then(res=>{
+       setDatasn3(res.data.data)
+     })
+     .catch((err)=>{
+       //   console.log(err)
+     })
+   },[]
+   );
 
-const ctn1= datas.filter(e=> e.nameclass="1 st Class").map(filteredPerson => (
-    setLimn1(filteredPerson.limitstudent)
-    ));
-const percn1=ctn1.length*100/limitn1
+   const [datasp1,setDatasp1]= useState([]);
+   useEffect( ()=>{    
+       const students=axios.get(`${urlPath.assign}/p1`, { headers: {"Authorization" :token} })
+       .then(res=>{
+          setDatasp1(res.data.data)
+        })
+        .catch((err)=>{
+          //   console.log(err)
+        })
+      },[]
+      );
 
+      const [datasp2,setDatasp2]= useState([]);
+      useEffect( ()=>{    
+          const students=axios.get(`${urlPath.assign}/p2`, { headers: {"Authorization" :token} })
+          .then(res=>{
+             setDatasp2(res.data.data)
+           })
+           .catch((err)=>{
+             //   console.log(err)
+           })
+         },[]
+         );
 
-const ctn2= datas.filter(e=> e.nameclass="2 nd Class").map(filteredPerson => (
-    setLimn2(filteredPerson.limitstudent)
-    ));
-const percn2=ctn2.length*100/limitn2
+         const [datasp3,setDatasp3]= useState([]);
+         useEffect( ()=>{    
+             const students=axios.get(`${urlPath.assign}/p3`, { headers: {"Authorization" :token} })
+             .then(res=>{
+                setDatasp3(res.data.data)
+              })
+              .catch((err)=>{
+                //   console.log(err)
+              })
+            },[]
+            );
 
+            const [datasp4,setDatasp4]= useState([]);
+            useEffect( ()=>{    
+                const students=axios.get(`${urlPath.assign}/p4`, { headers: {"Authorization" :token} })
+                .then(res=>{
+                   setDatasp4(res.data.data)
+                 })
+                 .catch((err)=>{
+                   //   console.log(err)
+                 })
+               },[]
+               );
+               const [datasp5,setDatasp5]= useState([]);
+               useEffect( ()=>{    
+                   const students=axios.get(`${urlPath.assign}/p5`, { headers: {"Authorization" :token} })
+                   .then(res=>{
+                      setDatasp5(res.data.data)
+                    })
+                    .catch((err)=>{
+                      //   console.log(err)
+                    })
+                  },[]
+                  );
 
-const ctn3= datas.filter(e=> e.nameclass="3 nd Class").map(filteredPerson => (
-    setLimn3(filteredPerson.limitstudent)
-    ));
-const percn3=ctn3.length*100/limitn3
-// primary section
+                  const [datasp6,setDatasp6]= useState([]);
+                  useEffect( ()=>{    
+                      const students=axios.get(`${urlPath.assign}/p5`, { headers: {"Authorization" :token} })
+                      .then(res=>{
+                         setDatasp5(res.data.data)
+                       })
+                       .catch((err)=>{
+                         //   console.log(err)
+                       })
+                     },[]
+                     );
 
-const ctp1= datas.filter(e=> e.nameclass="P 1").map(filteredPerson => (
-    setLimp1(filteredPerson.limitstudent)
-    ));
-const percp1=ctp1.length*100/limitp1
+                     const [datass1,setDatass1]= useState([]);
+                     useEffect( ()=>{    
+                         const students=axios.get(`${urlPath.assign}/s1`, { headers: {"Authorization" :token} })
+                         .then(res=>{
+                            setDatass1(res.data.data)
+                          })
+                          .catch((err)=>{
+                            //   console.log(err)
+                          })
+                        },[]
+                        );
 
+                        const [datass2,setDatass2]= useState([]);
+                        useEffect( ()=>{    
+                            const students=axios.get(`${urlPath.assign}/s2`, { headers: {"Authorization" :token} })
+                            .then(res=>{
+                               setDatass2(res.data.data)
+                             })
+                             .catch((err)=>{
+                               //   console.log(err)
+                             })
+                           },[]
+                           );
+                           const [datass3,setDatass3]= useState([]);
+                           useEffect( ()=>{    
+                               const students=axios.get(`${urlPath.assign}/s3`, { headers: {"Authorization" :token} })
+                               .then(res=>{
+                                  setDatass3(res.data.data)
+                                })
+                                .catch((err)=>{
+                                  //   console.log(err)
+                                })
+                              },[]
+                              );
 
-const ctp2= datas.filter(e=> e.nameclass="P 2").map(filteredPerson => (
-    setLimp2(filteredPerson.limitstudent)
-    ));
-const percp2=ctp2.length*100/limitp2
+                              const [datass4,setDatass4]= useState([]);
+                              useEffect( ()=>{    
+                                  const students=axios.get(`${urlPath.assign}/s4`, { headers: {"Authorization" :token} })
+                                  .then(res=>{
+                                     setDatass4(res.data.data)
+                                   })
+                                   .catch((err)=>{
+                                     //   console.log(err)
+                                   })
+                                 },[]
+                                 );
 
+                                 const [datass5,setDatass5]= useState([]);
+                                 useEffect( ()=>{    
+                                     const students=axios.get(`${urlPath.assign}/s5`, { headers: {"Authorization" :token} })
+                                     .then(res=>{
+                                        setDatass5(res.data.data)
+                                      })
+                                      .catch((err)=>{
+                                        //   console.log(err)
+                                      })
+                                    },[]
+                                    );
 
-
-const ctp3= datas.filter(e=> e.nameclass="P 3").map(filteredPerson => (
-    setLimp3(filteredPerson.limitstudent)
-    ));
-const percp3=ctp3.length*100/limitp3
-
-
-
-const ctp4= datas.filter(e=> e.nameclass="P 4").map(filteredPerson => (
-    setLimp4(filteredPerson.limitstudent)
-    ));
-const percp4=ctp4.length*100/limitp4
-
-
-const ctp5= datas.filter(e=> e.nameclass="P 5").map(filteredPerson => (
-    setLimp5(filteredPerson.limitstudent)
-    ));
-const percp5=ctp5.length*100/limitp5
-
-
-const ctp6= datas.filter(e=> e.nameclass="P 6").map(filteredPerson => (
-    setLimp6(filteredPerson.limitstudent)
-    ));
-const percp6=ctp6.length*100/limitp6
-// o-level
-
-const cts1= datas.filter(e=> e.nameclass="Sinior 1").map(filteredPerson => (
-    setLims1(filteredPerson.limitstudent)
-    ));
-const percs1=cts1.length*100/limits1
-
-
-const cts2= datas.filter(e=> e.nameclass="Sinior 2").map(filteredPerson => (
-    setLims2(filteredPerson.limitstudent)
-    ));
-const percs2=cts2.length*100/limits2
-
-
-const cts3= datas.filter(e=> e.nameclass="Sinior 3").map(filteredPerson => (
-    setLims3(filteredPerson.limitstudent)
-    ));
-const percs3=cts3.length*100/limits3
-// a_level
-
-const cts4= datas.filter(e=> e.nameclass="Sinior 4").map(filteredPerson => (
-    setLims4(filteredPerson.limitstudent)
-    ));
-const percs4=cts4.length*100/limits4
-
-
-const cts5= datas.filter(e=> e.nameclass="Sinior 5").map(filteredPerson => (
-    setLims5(filteredPerson.limitstudent)
-    ));
-const percs5=cts5.length*100/limits5
-
-
-const cts6= datas.filter(e=> e.nameclass="Sinior 6").map(filteredPerson => (
-    setLims6(filteredPerson.limitstudent)
-    ));
-const percs6=cts6.length*100/limits6
-
-
-
-
-
-
-
-
-
-
-
+                                    const [datass6,setDatass6]= useState([]);
+                                    useEffect( ()=>{    
+                                        const students=axios.get(`${urlPath.assign}/s6`, { headers: {"Authorization" :token} })
+                                        .then(res=>{
+                                           setDatass6(res.data.data)
+                                         })
+                                         .catch((err)=>{
+                                           //   console.log(err)
+                                         })
+                                       },[]
+                                       );
 
     const handleTest = () => {
         setShow(true);
@@ -631,166 +672,278 @@ const percs6=cts6.length*100/limits6
                          <div className="pl-3 pt-2">
                              <h4 className="font-medium text-blue-900">Nursery</h4>
                              <div className="row  pl-2">
-                                 <div className="col-4 font-normal"><snap>1st Class</snap></div>
-                                 <div className="col-8 font-normal text-sm flex">
-                                     <span className="w-full "> <ProgressBar variant="dark" now={percn1}  /> 
-                                   
+                                 <div className="col-4 font-normal"><snap>1 st Class</snap></div>
+                                 {datas.slice(0,1).map((item,key)=>{
+                                     return(                             
+                                     <div className="col-8 font-normal text-sm flex">
+                       
+                                     <span className="w-full "> <ProgressBar variant="dark" now={datas.length*100/item.limitstudent}  /> 
+                                     
                                      </span>
                                      <span className="w-12 ml-2">
-            
-                                     {ctn1.length}
+                                   {datas.length}
                                      </span>
                                      
                                      
                                      </div>
+                                     )})}
+ 
                                  <div className="col-4 font-normal"><snap>2nd Class</snap></div>
-                                 <div className="col-8 font-normal text-sm flex">
-                                     <span className="w-full"><ProgressBar variant="dark" now={percn2} /> </span>
+                                 {datasn2.slice(0,1).map((item,key)=>{return(                             
+                                     
+                                     
+                                     <div className="col-8 font-normal text-sm flex">
+                       
+                                     <span className="w-full "> <ProgressBar variant="dark" now={datasn2.length*100/item.limitstudent}  /> 
+                                     
+                                     </span>
                                      <span className="w-12 ml-2">
-                                     {ctn2.length}</span>
+ {datasn2.length}
+                                     </span>
                                      
                                      
                                      </div>
+                                     )})}
 
                                  <div className="col-4 font-normal"><snap>3rd Class</snap></div>
-<div className="col-8 font-normal text-sm flex">
-                                     <span className="w-full"><ProgressBar variant="dark" now={percn3}  /> </span>
+                                 {datasn3.slice(0,1).map((item,key)=>{return(                             
+                                     
+                                     
+                                     <div className="col-8 font-normal text-sm flex">
+                       
+                                     <span className="w-full "> <ProgressBar variant="dark" now={datasn3.length*100/item.limitstudent}  /> 
+                                     
+                                     </span>
                                      <span className="w-12 ml-2">
-                                     {ctn3.length}</span>
+                                      {datasn3.length}
+                                     </span>
                                      
                                      
-                                     </div>                             </div>
+                                     </div>
+                                     )})}                       
+                                     
+                                     
+                                          </div>
                          </div>
                          <div className="pl-3 pt-2">
                              <h4 className="font-medium text-blue-900">Primary</h4>
                              <div className="row pl-2">
                                  <div className="col-4 font-normal"><snap>P 1</snap></div>
-                                 <div className="col-8 font-normal text-sm flex">
-                                     <span className="w-full"><ProgressBar variant="dark" now={percp1}  /> </span>
+                                 {datasp1.slice(0,1).map((item,key)=>{return(                             
+                                     
+                                     
+                                     <div className="col-8 font-normal text-sm flex">
+                       
+                                     <span className="w-full "> <ProgressBar variant="dark" now={datasp1.length*100/item.limitstudent}  /> 
+                                     
+                                     </span>
                                      <span className="w-12 ml-2">
-                                     {ctp1.length}</span>
+                                      {datasp1.length}
+                                     </span>
                                      
                                      
-                                     </div> 
+                                     </div>
+                                     )})}
                                      
                                      
                                      
                                     <div className="col-4 font-normal"><snap>P 2</snap></div>
-                                    <div className="col-8 font-normal text-sm flex">
-                                     <span className="w-full"><ProgressBar variant="dark" now={percp2}  /> </span>
+                                    {datasp2.slice(0,1).map((item,key)=>{return(                             
+                                     
+                                     
+                                     <div className="col-8 font-normal text-sm flex">
+                       
+                                     <span className="w-full "> <ProgressBar variant="dark" now={datasp2.length*100/item.limitstudent}  /> 
+                                     
+                                     </span>
                                      <span className="w-12 ml-2">
-                                     {ctp2.length}
+                                      {datasp2.length}
                                      </span>
                                      
                                      
-                                     </div>          
+                                     </div>
+                                     )})}  
+
                                      <div className="col-4 font-normal"><snap>P 3</snap></div>
                                      
-                                                            <div className="col-8 font-normal text-sm flex">
-                                     <span className="w-full"><ProgressBar variant="dark" now={percp3}  /> </span>
+                                     {datasp3.slice(0,1).map((item,key)=>{return(                             
+                                     
+                                     
+                                     <div className="col-8 font-normal text-sm flex">
+                       
+                                     <span className="w-full "> <ProgressBar variant="dark" now={datasp3.length*100/item.limitstudent}  /> 
+                                     
+                                     </span>
                                      <span className="w-12 ml-2">
-                                     {ctp3.length}
+                                      {datasp3.length}
                                      </span>
                                      
                                      
-                                     </div>   
+                                     </div>
+                                     )})}  
 
                                      <div className="col-4 font-normal"><snap>P 4</snap></div>
                                      
+                                     {datasp4.slice(0,1).map((item,key)=>{return(                             
+                                     
+                                     
                                      <div className="col-8 font-normal text-sm flex">
-              <span className="w-full"><ProgressBar variant="dark" now={percp4}  /> </span>
-              <span className="w-12 ml-2">
-              {ctp4.length}
-              </span>
-              
-              
-              </div>   
+                       
+                                     <span className="w-full "> <ProgressBar variant="dark" now={datasp4.length*100/item.limitstudent}  /> 
+                                     
+                                     </span>
+                                     <span className="w-12 ml-2">
+                                      {datasp4.length}
+                                     </span>
+                                     
+                                     
+                                     </div>
+                                     )})}  
 
 
                                      
                                      <div className="col-4 font-normal"><snap>P 5</snap></div>
                                  
-                                 <div className="col-8 font-normal text-sm flex">
-                                     <span className="w-full"><ProgressBar variant="dark" now={percp5}  /> </span>
+                                     {datasp5.slice(0,1).map((item,key)=>{return(                             
+                                     
+                                     
+                                     <div className="col-8 font-normal text-sm flex">
+                       
+                                     <span className="w-full "> <ProgressBar variant="dark" now={datasp5.length*100/item.limitstudent}  /> 
+                                     
+                                     </span>
                                      <span className="w-12 ml-2">
-                                     {ctp5.length}
+                                      {datasp5.length}
                                      </span>
                                      
                                      
-                                     </div>                                
+                                     </div>
+                                     )})}                               
                                       
                                    
                                          <div className="col-4 font-normal"><snap>P 6</snap></div>
-                                         <div className="col-8 font-normal text-sm flex">
-                                     <span className="w-full"><ProgressBar variant="dark" now={percp6}   /> </span>
+                                         {datasp6.slice(0,1).map((item,key)=>{return(                             
+                                     
+                                     
+                                     <div className="col-8 font-normal text-sm flex">
+                       
+                                     <span className="w-full "> <ProgressBar variant="dark" now={datasp6.length*100/item.limitstudent}  /> 
+                                     
+                                     </span>
                                      <span className="w-12 ml-2">
-                                     {ctp6.length}
+                                      {datasp6.length}
                                      </span>
                                      
                                      
-                                     </div>                             </div>
+                                     </div>
+                                     )})}             
+                                                  
+                                                     </div>
                          </div>
                          <div className="pl-3 pt-2">
                              <h4 className="font-medium text-blue-900">O-Level</h4>
                              <div className="row pl-2">
-                                 <div className="col-4 font-normal"><snap>Sinior 1</snap></div><div className="col-8 font-normal text-sm flex">
-                                     <span className="w-full"><ProgressBar variant="dark" now={percs1}  /> </span>
+                                 <div className="col-4 font-normal"><snap>Sinior 1</snap></div>
+                                 {datass1.slice(0,1).map((item,key)=>{return(                             
+                                     
+                                     
+                                     <div className="col-8 font-normal text-sm flex">
+                       
+                                     <span className="w-full "> <ProgressBar variant="dark" now={datass1.length*100/item.limitstudent}  /> 
+                                     
+                                     </span>
                                      <span className="w-12 ml-2">
-                                     {cts1.length}
+                                      {datass1.length}
                                      </span>
                                      
                                      
                                      </div>
+                                     )})}  
                                  <div className="col-4 font-normal"><snap>Sinior 2</snap></div>
-                                 <div className="col-8 font-normal text-sm flex">
-                                     <span className="w-full"><ProgressBar variant="dark" now={percs2}  /> </span>
+                                 {datass2.slice(0,1).map((item,key)=>{return(                             
+                                     
+                                     
+                                     <div className="col-8 font-normal text-sm flex">
+                       
+                                     <span className="w-full "> <ProgressBar variant="dark" now={datass2.length*100/item.limitstudent}  /> 
+                                     
+                                     </span>
                                      <span className="w-12 ml-2">
-                                     {cts2.length}
+                                      {datass2.length}
                                      </span>
                                      
                                      
                                      </div>
+                                     )})} 
                                  <div className="col-4 font-normal"><snap>Sinior 3</snap></div>
-                                 <div className="col-8 font-normal text-sm flex">
-                                     <span className="w-full"><ProgressBar variant="dark" now={percs3}  /> </span>
+                                 {datass3.slice(0,1).map((item,key)=>{return(                             
+                                     
+                                     
+                                     <div className="col-8 font-normal text-sm flex">
+                       
+                                     <span className="w-full "> <ProgressBar variant="dark" now={datass3.length*100/item.limitstudent}  /> 
+                                     
+                                     </span>
                                      <span className="w-12 ml-2">
-                                     {cts3.length}
+                                      {datass3.length}
                                      </span>
                                      
                                      
                                      </div>
+                                     )})} 
                              </div>
                          </div>
                          <div className="pl-3 pt-2">
                              <h4 className="font-medium text-blue-900">E-Level</h4>
                              <div className="row pl-2">
                                  <div className="col-4 font-normal"><snap>Sinior 4</snap></div>
-                                 <div className="col-8 font-normal text-sm flex">
-                                     <span className="w-full"><ProgressBar variant="dark" now={percs4}   /> </span>
+                                 {datass4.slice(0,1).map((item,key)=>{return(                             
+                                     
+                                     
+                                     <div className="col-8 font-normal text-sm flex">
+                       
+                                     <span className="w-full "> <ProgressBar variant="dark" now={datass4.length*100/item.limitstudent}  /> 
+                                     
+                                     </span>
                                      <span className="w-12 ml-2">
-                                     {cts4.length}
+                                      {datass4.length}
                                      </span>
                                      
                                      
                                      </div>
+                                     )})} 
                                  <div className="col-4 font-normal"><snap>Sinior 5</snap></div>
-                                 <div className="col-8 font-normal text-sm flex">
-                                     <span className="w-full"><ProgressBar variant="dark" now={percs5}  /> </span>
+                                 {datass5.slice(0,1).map((item,key)=>{return(                             
+                                     
+                                     
+                                     <div className="col-8 font-normal text-sm flex">
+                       
+                                     <span className="w-full "> <ProgressBar variant="dark" now={datass5.length*100/item.limitstudent}  /> 
+                                     
+                                     </span>
                                      <span className="w-12 ml-2">
-                                     {cts5.length}
+                                      {datass5.length}
                                      </span>
                                      
                                      
                                      </div>
+                                     )})} 
                                  <div className="col-4 font-normal"><snap>Sinior 6</snap></div>
-                                 <div className="col-8 font-normal text-sm flex">
-                                     <span className="w-full"><ProgressBar variant="dark" now={percs6} /> </span>
+                                 {datass6.slice(0,1).map((item,key)=>{return(                             
+                                     
+                                     
+                                     <div className="col-8 font-normal text-sm flex">
+                       
+                                     <span className="w-full "> <ProgressBar variant="dark" now={datass6.length*100/item.limitstudent}  /> 
+                                     
+                                     </span>
                                      <span className="w-12 ml-2">
-                                     {cts6.length}
+                                      {datass6.length}
                                      </span>
                                      
                                      
                                      </div>
+                                     )})} 
                              </div>
                          </div>
                      </div>
